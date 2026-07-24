@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mi Perfil | CloudSpace</title>
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial, Helvetica, sans-serif;
+}
+
+body{
+    background:#eef4ff;
+}
+
+header{
+    background:#0b3d91;
+    color:white;
+    padding:20px;
+}
+
+header h1{
+    display:inline-block;
+}
+
+nav{
+    float:right;
+    margin-top:8px;
+}
+
+nav a{
+    color:white;
+    text-decoration:none;
+    margin-left:20px;
+    font-weight:bold;
+}
+
+nav a:hover{
+    color:gold;
+}
+
+.contenedor{
+    width:90%;
+    max-width:900px;
+    margin:40px auto;
+}
+
+.perfil{
+    background:white;
+    border-radius:15px;
+    box-shadow:0 0 15px rgba(0,0,0,.2);
+    padding:30px;
+    text-align:center;
+}
+
+.perfil img{
+    width:150px;
+    height:150px;
+    border-radius:50%;
+    border:5px solid #0b3d91;
+    margin-bottom:20px;
+}
+
+.perfil h2{
+    color:#0b3d91;
+    margin-bottom:10px;
+}
+
+.info{
+    margin-top:30px;
+    text-align:left;
+}
+
+.info p{
+    margin:15px 0;
+    font-size:18px;
+}
+
+.barra{
+    width:100%;
+    height:25px;
+    background:#ddd;
+    border-radius:20px;
+    overflow:hidden;
+    margin-top:10px;
+}
+
+.progreso{
+    width:65%;
+    height:100%;
+    background:#28a745;
+}
+
+.botones{
+    margin-top:30px;
+}
+
+button{
+    padding:12px 25px;
+    margin:10px;
+    border:none;
+    border-radius:8px;
+    background:#0b3d91;
+    color:white;
+    cursor:pointer;
+    font-size:16px;
+}
+
+button:hover{
+    background:#28a745;
+}
+
+footer{
+    background:#0b3d91;
+    color:white;
+    text-align:center;
+    padding:20px;
+    margin-top:50px;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<header>
+
+<h1>☁ CloudSpace</h1>
+
+<nav>
+
+<a href="index.html">Inicio</a>
+<a href="planes.html">Planes</a>
+<a href="compras.html">Comprar</a>
+<a href="perfil.html">Perfil</a>
+<a href="contacto.html">Contacto</a>
+<a href="faq.html">FAQ</a>
+
+</nav>
+
+<div style="clear:both;"></div>
+
+</header>
+
+<div class="contenedor">
+
+<div class="perfil">
+
+<img src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png" alt="Usuario">
+
+<h2>Juan Pérez</h2>
+
+<p>Bienvenido a tu cuenta de CloudSpace.</p>
+
+<div class="info">
+
+<p><strong>Correo:</strong> juan@email.com</p>
+
+<p><strong>Plan Actual:</strong> Pro (2 TB)</p>
+
+<p><strong>Espacio Utilizado:</strong> 1.3 TB de 2 TB</p>
+
+<div class="barra">
+
+<div class="progreso"></div>
+
+</div>
+
+<p><strong>Estado:</strong> Activo</p>
+
+<p><strong>Próximo pago:</strong> 15 de agosto de 2026</p>
+
+</div>
+
+<div class="botones">
+
+<button onclick="editar()">Editar Perfil</button>
+
+<button onclick="cerrar()">Cerrar Sesión</button>
+
+</div>
+
+</div>
+
+</div>
+
+<footer>
+
+<h3>CloudSpace © 2026</h3>
+
+<p>Tu información está protegida.</p>
+
+</footer>
+
+<script>
+
+function editar(){
+
+alert("Aquí podrás editar tu información personal.");
+
+}
+
+function cerrar(){
+
+if(confirm("¿Desea cerrar sesión?")){
+
+window.location="index.html";
+
+}
+
+}
+
+</script>
+
+</body>
+</html>

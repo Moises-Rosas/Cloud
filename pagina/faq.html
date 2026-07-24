@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Preguntas Frecuentes | CloudSpace</title>
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial, Helvetica, sans-serif;
+}
+
+body{
+    background:#eef4ff;
+}
+
+header{
+    background:#0b3d91;
+    color:white;
+    padding:20px;
+}
+
+header h1{
+    display:inline-block;
+}
+
+nav{
+    float:right;
+    margin-top:8px;
+}
+
+nav a{
+    color:white;
+    text-decoration:none;
+    margin-left:20px;
+    font-weight:bold;
+}
+
+nav a:hover{
+    color:gold;
+}
+
+.contenedor{
+    width:90%;
+    max-width:900px;
+    margin:40px auto;
+}
+
+h2{
+    text-align:center;
+    color:#0b3d91;
+    margin-bottom:30px;
+}
+
+.faq{
+    background:white;
+    border-radius:10px;
+    margin-bottom:15px;
+    box-shadow:0px 0px 10px rgba(0,0,0,.2);
+}
+
+.pregunta{
+    padding:18px;
+    cursor:pointer;
+    font-size:18px;
+    font-weight:bold;
+    color:#0b3d91;
+}
+
+.respuesta{
+    display:none;
+    padding:18px;
+    border-top:1px solid #ddd;
+    color:#555;
+}
+
+footer{
+    background:#0b3d91;
+    color:white;
+    text-align:center;
+    padding:20px;
+    margin-top:50px;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<header>
+
+<h1>☁ CloudSpace</h1>
+
+<nav>
+
+<a href="index.html">Inicio</a>
+<a href="planes.html">Planes</a>
+<a href="compras.html">Comprar</a>
+<a href="perfil.html">Perfil</a>
+<a href="contacto.html">Contacto</a>
+<a href="faq.html">FAQ</a>
+
+</nav>
+
+<div style="clear:both;"></div>
+
+</header>
+
+<div class="contenedor">
+
+<h2>Preguntas Frecuentes</h2>
+
+<div class="faq">
+<div class="pregunta" onclick="mostrar(0)">
+¿Qué es CloudSpace?
+</div>
+<div class="respuesta">
+CloudSpace es un servicio de almacenamiento en la nube que permite guardar, sincronizar y compartir archivos desde cualquier dispositivo.
+</div>
+</div>
+
+<div class="faq">
+<div class="pregunta" onclick="mostrar(1)">
+¿Mis archivos están seguros?
+</div>
+<div class="respuesta">
+Sí. Utilizamos cifrado y medidas de seguridad para proteger la información almacenada.
+</div>
+</div>
+
+<div class="faq">
+<div class="pregunta" onclick="mostrar(2)">
+¿Puedo cambiar de plan?
+</div>
+<div class="respuesta">
+Sí. Puedes cambiar de plan en cualquier momento desde tu cuenta.
+</div>
+</div>
+
+<div class="faq">
+<div class="pregunta" onclick="mostrar(3)">
+¿Cómo realizo un pago?
+</div>
+<div class="respuesta">
+Puedes pagar con Visa, MasterCard, PayPal o Yappy desde la página de compras.
+</div>
+</div>
+
+<div class="faq">
+<div class="pregunta" onclick="mostrar(4)">
+¿Qué pasa si mi almacenamiento se llena?
+</div>
+<div class="respuesta">
+Podrás actualizar a un plan superior para obtener más espacio sin perder tus archivos.
+</div>
+</div>
+
+<div class="faq">
+<div class="pregunta" onclick="mostrar(5)">
+¿Cómo recupero mi contraseña?
+</div>
+<div class="respuesta">
+En la pantalla de inicio de sesión selecciona la opción "¿Olvidaste tu contraseña?" y sigue las instrucciones.
+</div>
+</div>
+
+</div>
+
+<footer>
+
+<h3>CloudSpace © 2026</h3>
+
+<p>Preguntas frecuentes sobre nuestros servicios.</p>
+
+</footer>
+
+<script>
+
+function mostrar(numero){
+
+let respuestas=document.getElementsByClassName("respuesta");
+
+if(respuestas[numero].style.display=="block"){
+
+respuestas[numero].style.display="none";
+
+}else{
+
+for(let i=0;i<respuestas.length;i++){
+
+respuestas[i].style.display="none";
+
+}
+
+respuestas[numero].style.display="block";
+
+}
+
+}
+
+</script>
+
+</body>
+</html>

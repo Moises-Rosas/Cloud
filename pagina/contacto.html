@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Contacto | CloudSpace</title>
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial, Helvetica, sans-serif;
+}
+
+body{
+    background:#eef4ff;
+}
+
+header{
+    background:#0b3d91;
+    color:white;
+    padding:20px;
+}
+
+header h1{
+    display:inline-block;
+}
+
+nav{
+    float:right;
+    margin-top:8px;
+}
+
+nav a{
+    color:white;
+    text-decoration:none;
+    margin-left:20px;
+    font-weight:bold;
+}
+
+nav a:hover{
+    color:gold;
+}
+
+.contenedor{
+    width:90%;
+    max-width:700px;
+    margin:40px auto;
+}
+
+.formulario{
+    background:white;
+    padding:30px;
+    border-radius:15px;
+    box-shadow:0 0 15px rgba(0,0,0,.2);
+}
+
+.formulario h2{
+    text-align:center;
+    color:#0b3d91;
+    margin-bottom:20px;
+}
+
+.formulario p{
+    text-align:center;
+    color:#555;
+    margin-bottom:30px;
+}
+
+label{
+    display:block;
+    margin-top:15px;
+    font-weight:bold;
+}
+
+input,
+textarea{
+    width:100%;
+    padding:12px;
+    margin-top:5px;
+    border:1px solid #ccc;
+    border-radius:8px;
+    font-size:16px;
+}
+
+textarea{
+    resize:none;
+}
+
+button{
+    width:100%;
+    margin-top:25px;
+    padding:15px;
+    background:#0b3d91;
+    color:white;
+    border:none;
+    border-radius:10px;
+    font-size:18px;
+    cursor:pointer;
+}
+
+button:hover{
+    background:#28a745;
+}
+
+.info{
+    margin-top:30px;
+    background:#ffffff;
+    padding:20px;
+    border-radius:15px;
+    box-shadow:0 0 10px rgba(0,0,0,.2);
+}
+
+.info h3{
+    color:#0b3d91;
+    margin-bottom:15px;
+}
+
+.info p{
+    margin:8px 0;
+}
+
+footer{
+    background:#0b3d91;
+    color:white;
+    text-align:center;
+    padding:20px;
+    margin-top:50px;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<header>
+
+<h1>☁ CloudSpace</h1>
+
+<nav>
+
+<a href="index.html">Inicio</a>
+<a href="planes.html">Planes</a>
+<a href="compras.html">Comprar</a>
+<a href="perfil.html">Perfil</a>
+<a href="contacto.html">Contacto</a>
+<a href="faq.html">FAQ</a>
+
+</nav>
+
+<div style="clear:both;"></div>
+
+</header>
+
+<div class="contenedor">
+
+<div class="formulario">
+
+<h2>Contáctanos</h2>
+
+<p>¿Tienes alguna duda? Envíanos un mensaje.</p>
+
+<form onsubmit="return enviarMensaje()">
+
+<label>Nombre Completo</label>
+<input type="text" id="nombre" required>
+
+<label>Correo Electrónico</label>
+<input type="email" id="correo" required>
+
+<label>Asunto</label>
+<input type="text" id="asunto" required>
+
+<label>Mensaje</label>
+<textarea id="mensaje" rows="6" required></textarea>
+
+<button type="submit">Enviar Mensaje</button>
+
+</form>
+
+</div>
+
+<div class="info">
+
+<h3>Información de Contacto</h3>
+
+<p>📍 Dirección: Ciudad de Panamá, Panamá</p>
+
+<p>📞 Teléfono: +507 6397-1028</p>
+
+<p>📧 Correo: soporte@cloudspace.com</p>
+
+<p>🕒 Horario: Lunes a Viernes de 8:00 a.m. a 5:00 p.m.</p>
+
+</div>
+
+</div>
+
+<footer>
+
+<h3>CloudSpace © 2026</h3>
+
+<p>Siempre listos para ayudarte.</p>
+
+</footer>
+
+<script>
+
+function enviarMensaje(){
+
+let nombre=document.getElementById("nombre").value;
+
+alert("Gracias, " + nombre + ".\n\nTu mensaje fue enviado correctamente.\nNuestro equipo te responderá pronto.");
+
+return false;
+
+}
+
+</script>
+
+</body>
+</html>

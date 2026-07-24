@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Planes | CloudSpace</title>
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial, Helvetica, sans-serif;
+}
+
+body{
+    background:#eef4ff;
+}
+
+header{
+    background:#0b3d91;
+    color:white;
+    padding:20px;
+}
+
+header h1{
+    display:inline-block;
+}
+
+nav{
+    float:right;
+    margin-top:8px;
+}
+
+nav a{
+    color:white;
+    text-decoration:none;
+    margin-left:20px;
+    font-weight:bold;
+}
+
+nav a:hover{
+    color:gold;
+}
+
+.titulo{
+    text-align:center;
+    padding:50px 20px;
+}
+
+.titulo h2{
+    font-size:40px;
+    color:#0b3d91;
+}
+
+.titulo p{
+    margin-top:10px;
+    font-size:18px;
+}
+
+.planes{
+
+    display:flex;
+    justify-content:center;
+    flex-wrap:wrap;
+    gap:30px;
+    padding:20px;
+
+}
+
+.plan{
+
+    background:white;
+    width:280px;
+    border-radius:15px;
+    box-shadow:0px 0px 15px rgba(0,0,0,.2);
+    padding:30px;
+    text-align:center;
+    transition:.3s;
+
+}
+
+.plan:hover{
+
+    transform:scale(1.05);
+
+}
+
+.plan h3{
+
+    color:#0b3d91;
+    margin-bottom:15px;
+
+}
+
+.precio{
+
+    font-size:40px;
+    color:#28a745;
+    margin:20px 0;
+
+}
+
+.plan ul{
+
+    list-style:none;
+    text-align:left;
+    margin-bottom:20px;
+
+}
+
+.plan ul li{
+
+    padding:8px;
+
+}
+
+.boton{
+
+    display:block;
+    background:#0b3d91;
+    color:white;
+    padding:15px;
+    text-decoration:none;
+    border-radius:10px;
+    font-weight:bold;
+
+}
+
+.boton:hover{
+
+    background:#28a745;
+
+}
+
+footer{
+
+    background:#0b3d91;
+    color:white;
+    text-align:center;
+    padding:20px;
+    margin-top:50px;
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<header>
+
+<h1>☁ CloudSpace</h1>
+
+<nav>
+
+<a href="index.html">Inicio</a>
+<a href="planes.html">Planes</a>
+<a href="compras.html">Comprar</a>
+<a href="perfil.html">Perfil</a>
+<a href="contacto.html">Contacto</a>
+<a href="faq.html">FAQ</a>
+
+</nav>
+
+<div style="clear:both;"></div>
+
+</header>
+
+<section class="titulo">
+
+<h2>Nuestros Planes</h2>
+
+<p>Elige el plan que mejor se adapte a tus necesidades.</p>
+
+</section>
+
+<section class="planes">
+
+<div class="plan">
+
+<h3>Gratis</h3>
+
+<div class="precio">$0</div>
+
+<ul>
+
+<li>✔ 20 GB de almacenamiento</li>
+
+<li>✔ Acceso desde cualquier dispositivo</li>
+
+<li>✔ Compartir archivos</li>
+
+<li>✖ Sin soporte prioritario</li>
+
+</ul>
+
+<a href="compras.html" class="boton">Seleccionar</a>
+
+</div>
+
+<div class="plan">
+
+<h3>Essential</h3>
+
+<div class="precio">$5.99</div>
+
+<ul>
+
+<li>✔ 200 GB de almacenamiento</li>
+
+<li>✔ Copias de seguridad</li>
+
+<li>✔ Compartir archivos</li>
+
+<li>✔ Soporte por correo</li>
+
+</ul>
+
+<a href="compras.html" class="boton">Comprar</a>
+
+</div>
+
+<div class="plan">
+
+<h3>Pro</h3>
+
+<div class="precio">$12.99</div>
+
+<ul>
+
+<li>✔ 2 TB de almacenamiento</li>
+
+<li>✔ Seguridad avanzada</li>
+
+<li>✔ Historial de versiones</li>
+
+<li>✔ Soporte 24/7</li>
+
+</ul>
+
+<a href="compras.html" class="boton">Comprar</a>
+
+</div>
+
+<div class="plan">
+
+<h3>Pro Flexi</h3>
+
+<div class="precio">$32</div>
+
+<ul>
+
+<li>✔ Hasta 16 TB</li>
+
+<li>✔ Usuarios múltiples</li>
+
+<li>✔ Máxima velocidad</li>
+
+<li>✔ Gestor de cuenta</li>
+
+</ul>
+
+<a href="compras.html" class="boton">Comprar</a>
+
+</div>
+
+</section>
+
+<footer>
+
+<h3>CloudSpace © 2026</h3>
+
+<p>Protegemos tus archivos las 24 horas.</p>
+
+</footer>
+
+</body>
+</html>
