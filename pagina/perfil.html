@@ -263,7 +263,7 @@ footer{
         <div class="avatar-edit"><i class="ti ti-camera"></i></div>
     </div>
     <div>
-        <h2 id="verNombre">usuario</h2>
+        <h2 id="verNombre">Usuario</h2>
         <span class="badge-estado"><span class="punto"></span>Cuenta activa</span>
     </div>
 </div>
@@ -275,17 +275,17 @@ footer{
 
     <div class="campo">
         <label><i class="ti ti-user"></i>Nombre</label>
-        <span class="valor" id="verNombreCampo">usuario</span>
+        <span class="valor" id="verNombreCampo">Usuario</span>
     </div>
 
     <div class="campo">
         <label><i class="ti ti-mail"></i>Correo</label>
-        <span class="valor" id="verCorreo">usuario@gmail.com.com</span>
+        <span class="valor" id="verCorreo">usuario@gmail.com</span>
     </div>
 
     <div class="campo">
         <label><i class="ti ti-phone"></i>Teléfono</label>
-        <span class="valor" id="verTelefono">+507 ********</span>
+        <span class="valor" id="verTelefono">+504 *********</span>
     </div>
 
 </div>
@@ -329,19 +329,19 @@ footer{
 
 <div class="card">
     <div class="plan-header">
-        <span class="plan-nombre">Plan Pro</span>
-        <span class="plan-tag">2 TB</span>
+        <span class="plan-nombre" id="planNombreSidebar">Plan Pro</span>
+        <span class="plan-tag" id="planTagSidebar">2 TB</span>
     </div>
 
     <div class="uso-linea">
         <span>Espacio utilizado</span>
-        <span>1.3 TB de 2 TB</span>
+        <span id="planUsoSidebar">1.3 TB de 2 TB</span>
     </div>
-    <div class="barra"><div class="progreso"></div></div>
+    <div class="barra"><div class="progreso" id="planProgresoSidebar"></div></div>
 
     <div class="linea-info">
         <span><i class="ti ti-calendar-event"></i>Próximo pago</span>
-        <span>15 ago 2026</span>
+        <span id="planPagoSidebar">15 ago 2026</span>
     </div>
     <div class="linea-info">
         <span><i class="ti ti-shield-check"></i>Estado</span>
@@ -359,11 +359,52 @@ footer{
 
 <script>
 
+const CLAVE_PERFIL = "cloudspace_perfil";
+
+function perfilPorDefecto(){
+    return {
+        nombre: "Usuario",
+        correo: "usuario@gmail.com",
+        telefono: "+504 *********",
+        planNombre: "Pro",
+        planTag: "2 TB",
+        planUso: "1.3 TB de 2 TB",
+        planProgreso: 65,
+        planPago: "15 ago 2026"
+    };
+}
+
+function cargarPerfil(){
+    const guardado = localStorage.getItem(CLAVE_PERFIL);
+    return guardado ? JSON.parse(guardado) : perfilPorDefecto();
+}
+
+function guardarEnStorage(perfil){
+    localStorage.setItem(CLAVE_PERFIL, JSON.stringify(perfil));
+}
+
+function pintarPerfil(){
+    const perfil = cargarPerfil();
+
+    document.getElementById('verNombre').textContent = perfil.nombre;
+    document.getElementById('verNombreCampo').textContent = perfil.nombre;
+    document.getElementById('verCorreo').textContent = perfil.correo;
+    document.getElementById('verTelefono').textContent = perfil.telefono;
+
+    document.getElementById('planNombreSidebar').textContent = "Plan " + perfil.planNombre;
+    document.getElementById('planTagSidebar').textContent = perfil.planTag;
+    document.getElementById('planUsoSidebar').textContent = perfil.planUso;
+    document.getElementById('planProgresoSidebar').style.width = perfil.planProgreso + "%";
+    document.getElementById('planPagoSidebar').textContent = perfil.planPago;
+}
+
 function editar(){
 
-    document.getElementById('editNombre').value = document.getElementById('verNombreCampo').textContent;
-    document.getElementById('editCorreo').value = document.getElementById('verCorreo').textContent;
-    document.getElementById('editTelefono').value = document.getElementById('verTelefono').textContent;
+    const perfil = cargarPerfil();
+
+    document.getElementById('editNombre').value = perfil.nombre;
+    document.getElementById('editCorreo').value = perfil.correo;
+    document.getElementById('editTelefono').value = perfil.telefono;
 
     document.getElementById('modoVista').classList.add('oculto');
     document.getElementById('modoEdicion').classList.remove('oculto');
@@ -390,11 +431,13 @@ function guardar(){
         return;
     }
 
-    document.getElementById('verNombre').textContent = nombre;
-    document.getElementById('verNombreCampo').textContent = nombre;
-    document.getElementById('verCorreo').textContent = correo;
-    document.getElementById('verTelefono').textContent = telefono;
+    const perfil = cargarPerfil();
+    perfil.nombre = nombre;
+    perfil.correo = correo;
+    perfil.telefono = telefono;
+    guardarEnStorage(perfil);
 
+    pintarPerfil();
     volverAVista();
 
     var aviso = document.getElementById('avisoGuardado');
@@ -415,9 +458,12 @@ function volverAVista(){
 
 function cerrar(){
     if(confirm("¿Desea cerrar sesión?")){
+        localStorage.removeItem(CLAVE_PERFIL);
         window.location="index.html";
     }
 }
+
+pintarPerfil();
 
 </script>
 

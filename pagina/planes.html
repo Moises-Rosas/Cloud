@@ -4,145 +4,223 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Planes | CloudSpace</title>
-
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tabler-icons/2.44.0/iconfont/tabler-icons.min.css">
 <style>
 
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
-    font-family:Arial, Helvetica, sans-serif;
+:root{
+    --navy:#0b3d91;
+    --navy-dark:#082a66;
+    --navy-soft:#eaf0fc;
+    --green:#1f9d55;
+    --green-soft:#e5f7ec;
+    --amber:#c98a12;
+    --amber-soft:#fbf1de;
+    --ink:#1c2430;
+    --ink-soft:#5b6674;
+    --line:#e4e8f0;
+    --bg:#f4f6fb;
+    --card:#ffffff;
 }
+
+*{ margin:0; padding:0; box-sizing:border-box; }
 
 body{
-    background:#eef4ff;
+    font-family:'Inter', Arial, sans-serif;
+    background:var(--bg);
+    color:var(--ink);
 }
 
+/* ---------- HEADER ---------- */
 header{
-    background:#0b3d91;
+    background:var(--navy);
     color:white;
-    padding:20px;
+    padding:16px 32px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
 }
 
-header h1{
-    display:inline-block;
-}
+.logo{ display:flex; align-items:center; gap:10px; font-weight:700; font-size:19px; }
+.logo i{ font-size:22px; }
 
-nav{
-    float:right;
-    margin-top:8px;
-}
+nav{ display:flex; align-items:center; gap:4px; }
 
 nav a{
-    color:white;
+    color:rgba(255,255,255,.78);
     text-decoration:none;
-    margin-left:20px;
-    font-weight:bold;
+    font-weight:500;
+    font-size:14px;
+    padding:8px 14px;
+    border-radius:8px;
+    transition:background .15s ease, color .15s ease;
 }
 
-nav a:hover{
-    color:gold;
-}
+nav a:hover{ background:rgba(255,255,255,.1); color:white; }
+nav a.activo{ background:rgba(255,255,255,.16); color:white; }
 
+/* ---------- TITULO ---------- */
 .titulo{
     text-align:center;
-    padding:50px 20px;
+    padding:56px 20px 8px;
+    max-width:640px;
+    margin:0 auto;
+}
+
+.titulo .eyebrow{
+    display:inline-flex; align-items:center; gap:6px;
+    background:var(--navy-soft); color:var(--navy);
+    font-size:12.5px; font-weight:700; letter-spacing:.4px;
+    padding:6px 14px; border-radius:100px;
+    margin-bottom:18px;
 }
 
 .titulo h2{
-    font-size:40px;
-    color:#0b3d91;
+    font-size:34px;
+    font-weight:800;
+    letter-spacing:-.5px;
 }
 
 .titulo p{
     margin-top:10px;
-    font-size:18px;
+    font-size:15.5px;
+    color:var(--ink-soft);
 }
 
-.planes{
+/* ---------- SWITCH MENSUAL/ANUAL ---------- */
+.switch-periodo{
+    display:flex; align-items:center; justify-content:center; gap:14px;
+    margin:28px 0 8px;
+}
+.switch-periodo span{ font-size:13.5px; font-weight:600; color:var(--ink-soft); }
+.switch-periodo span.activo{ color:var(--navy); }
 
+.switch{
+    position:relative; width:46px; height:26px;
+    background:var(--navy-soft); border-radius:100px; cursor:pointer;
+    border:1.5px solid var(--line);
+}
+.switch .bola{
+    position:absolute; top:2px; left:2px; width:19px; height:19px;
+    background:var(--navy); border-radius:50%;
+    transition:left .18s ease;
+}
+.switch.on .bola{ left:23px; }
+
+.badge-ahorro{
+    background:var(--green-soft); color:var(--green);
+    font-size:11.5px; font-weight:700;
+    padding:3px 9px; border-radius:100px;
+}
+
+/* ---------- PLANES ---------- */
+.planes{
     display:flex;
     justify-content:center;
     flex-wrap:wrap;
-    gap:30px;
-    padding:20px;
-
+    gap:22px;
+    padding:34px 24px 30px;
+    max-width:1100px;
+    margin:0 auto;
+    align-items:stretch;
 }
 
 .plan{
-
-    background:white;
-    width:280px;
-    border-radius:15px;
-    box-shadow:0px 0px 15px rgba(0,0,0,.2);
-    padding:30px;
-    text-align:center;
-    transition:.3s;
-
+    background:var(--card);
+    width:250px;
+    border:1.5px solid var(--line);
+    border-radius:16px;
+    padding:26px;
+    display:flex;
+    flex-direction:column;
+    transition:transform .18s ease, border-color .18s ease;
 }
 
-.plan:hover{
+.plan:hover{ transform:translateY(-4px); border-color:#c7d4ef; }
 
-    transform:scale(1.05);
-
+.plan.destacado{
+    border:2px solid var(--navy);
+    position:relative;
 }
 
-.plan h3{
-
-    color:#0b3d91;
-    margin-bottom:15px;
-
+.tag-popular{
+    position:absolute; top:-13px; left:50%; transform:translateX(-50%);
+    background:var(--navy); color:white;
+    font-size:11.5px; font-weight:700; letter-spacing:.3px;
+    padding:5px 14px; border-radius:100px;
+    white-space:nowrap;
 }
+
+.plan-icono{
+    width:42px; height:42px; border-radius:10px;
+    background:var(--navy-soft); color:var(--navy);
+    display:flex; align-items:center; justify-content:center;
+    font-size:20px; margin-bottom:16px;
+}
+
+.plan h3{ font-size:17px; font-weight:700; margin-bottom:4px; }
+.plan .descripcion{ font-size:12.5px; color:var(--ink-soft); margin-bottom:16px; }
 
 .precio{
-
-    font-size:40px;
-    color:#28a745;
-    margin:20px 0;
-
+    display:flex; align-items:baseline; gap:5px;
+    margin-bottom:20px;
 }
+.precio .monto{ font-size:32px; font-weight:800; color:var(--ink); }
+.precio .periodo{ font-size:13px; color:var(--ink-soft); }
 
 .plan ul{
-
     list-style:none;
-    text-align:left;
-    margin-bottom:20px;
-
+    margin-bottom:22px;
+    flex-grow:1;
 }
 
 .plan ul li{
-
-    padding:8px;
-
+    display:flex; align-items:flex-start; gap:9px;
+    padding:7px 0;
+    font-size:13.5px;
+    color:var(--ink);
 }
+
+.plan ul li i{ font-size:16px; margin-top:1px; flex-shrink:0; }
+.plan ul li.no i{ color:#c3c9d4; }
+.plan ul li.no{ color:var(--ink-soft); }
+.plan ul li.si i{ color:var(--green); }
 
 .boton{
-
-    display:block;
-    background:#0b3d91;
-    color:white;
-    padding:15px;
+    display:flex; align-items:center; justify-content:center; gap:7px;
+    background:var(--navy-soft);
+    color:var(--navy);
+    padding:13px;
     text-decoration:none;
     border-radius:10px;
-    font-weight:bold;
-
+    font-weight:600;
+    font-size:14px;
+    transition:background .15s ease, color .15s ease;
 }
 
-.boton:hover{
+.boton:hover{ background:var(--navy); color:white; }
 
-    background:#28a745;
+.plan.destacado .boton{ background:var(--navy); color:white; }
+.plan.destacado .boton:hover{ background:var(--navy-dark); }
 
+.franja-confianza{
+    display:flex; justify-content:center; flex-wrap:wrap; gap:34px;
+    padding:10px 20px 50px;
+    color:var(--ink-soft);
+    font-size:13px;
 }
+.franja-confianza span{ display:flex; align-items:center; gap:7px; }
+.franja-confianza i{ font-size:16px; color:var(--navy); }
 
 footer{
-
-    background:#0b3d91;
-    color:white;
+    background:var(--navy);
+    color:rgba(255,255,255,.85);
     text-align:center;
-    padding:20px;
-    margin-top:50px;
-
+    padding:26px 20px;
 }
+footer h3{ font-size:15px; font-weight:600; color:white; }
+footer p{ font-size:13px; margin-top:4px; }
 
 </style>
 
@@ -152,123 +230,96 @@ footer{
 
 <header>
 
-<h1>☁ CloudSpace</h1>
+<div class="logo"><i class="ti ti-cloud"></i> CloudSpace</div>
 
 <nav>
-
 <a href="index.html">Inicio</a>
-<a href="planes.html">Planes</a>
+<a href="planes.html" class="activo">Planes</a>
 <a href="compras.html">Comprar</a>
 <a href="perfil.html">Perfil</a>
 <a href="contacto.html">Contacto</a>
-<a href="personal.html">personales</a>
+<a href="personal.html">Personales</a>
 <a href="faq.html">FAQ</a>
-
 </nav>
-
-<div style="clear:both;"></div>
 
 </header>
 
 <section class="titulo">
 
-<h2>Nuestros Planes</h2>
+<span class="eyebrow"><i class="ti ti-sparkles"></i>Planes y precios</span>
 
-<p>Elige el plan que mejor se adapte a tus necesidades.</p>
+<h2>Elige el espacio que necesitas</h2>
+
+<p>Sin permanencia. Cambia o cancela tu plan cuando quieras.</p>
 
 </section>
 
 <section class="planes">
 
 <div class="plan">
-
-<h3>Gratis</h3>
-
-<div class="precio">$0</div>
-
-<ul>
-
-<li>✔ 20 GB de almacenamiento</li>
-
-<li>✔ Acceso desde cualquier dispositivo</li>
-
-<li>✔ Compartir archivos</li>
-
-<li>✖ Sin soporte prioritario</li>
-
-</ul>
-
-<a href="compras.html" class="boton">Seleccionar</a>
-
+    <div class="plan-icono"><i class="ti ti-gift"></i></div>
+    <h3>Gratis</h3>
+    <p class="descripcion">Para probar CloudSpace</p>
+    <div class="precio"><span class="monto">$0</span><span class="periodo">/mes</span></div>
+    <ul>
+        <li class="si"><i class="ti ti-circle-check"></i>20 GB de almacenamiento</li>
+        <li class="si"><i class="ti ti-circle-check"></i>Acceso desde cualquier dispositivo</li>
+        <li class="si"><i class="ti ti-circle-check"></i>Compartir archivos</li>
+        <li class="no"><i class="ti ti-circle-x"></i>Sin soporte prioritario</li>
+    </ul>
+    <a href="compras.html?plan=gratis" class="boton">Empezar gratis</a>
 </div>
 
 <div class="plan">
+    <div class="plan-icono"><i class="ti ti-database"></i></div>
+    <h3>Essential</h3>
+    <p class="descripcion">Para uso personal</p>
+    <div class="precio"><span class="monto">$5.99</span><span class="periodo">/mes</span></div>
+    <ul>
+        <li class="si"><i class="ti ti-circle-check"></i>200 GB de almacenamiento</li>
+        <li class="si"><i class="ti ti-circle-check"></i>Copias de seguridad</li>
+        <li class="si"><i class="ti ti-circle-check"></i>Compartir archivos</li>
+        <li class="si"><i class="ti ti-circle-check"></i>Soporte por correo</li>
+    </ul>
+    <a href="compras.html?plan=essential" class="boton">Comprar</a>
+</div>
 
-<h3>Essential</h3>
-
-<div class="precio">$5.99</div>
-
-<ul>
-
-<li>✔ 200 GB de almacenamiento</li>
-
-<li>✔ Copias de seguridad</li>
-
-<li>✔ Compartir archivos</li>
-
-<li>✔ Soporte por correo</li>
-
-</ul>
-
-<a href="compras.html" class="boton">Comprar</a>
-
+<div class="plan destacado">
+    <span class="tag-popular">Más elegido</span>
+    <div class="plan-icono"><i class="ti ti-shield-star"></i></div>
+    <h3>Pro</h3>
+    <p class="descripcion">Para profesionales</p>
+    <div class="precio"><span class="monto">$12.99</span><span class="periodo">/mes</span></div>
+    <ul>
+        <li class="si"><i class="ti ti-circle-check"></i>2 TB de almacenamiento</li>
+        <li class="si"><i class="ti ti-circle-check"></i>Seguridad avanzada</li>
+        <li class="si"><i class="ti ti-circle-check"></i>Historial de versiones</li>
+        <li class="si"><i class="ti ti-circle-check"></i>Soporte 24/7</li>
+    </ul>
+    <a href="compras.html?plan=pro" class="boton">Comprar</a>
 </div>
 
 <div class="plan">
-
-<h3>Pro</h3>
-
-<div class="precio">$12.99</div>
-
-<ul>
-
-<li>✔ 2 TB de almacenamiento</li>
-
-<li>✔ Seguridad avanzada</li>
-
-<li>✔ Historial de versiones</li>
-
-<li>✔ Soporte 24/7</li>
-
-</ul>
-
-<a href="compras.html" class="boton">Comprar</a>
-
-</div>
-
-<div class="plan">
-
-<h3>Pro Flexi</h3>
-
-<div class="precio">$32</div>
-
-<ul>
-
-<li>✔ Hasta 16 TB</li>
-
-<li>✔ Usuarios múltiples</li>
-
-<li>✔ Máxima velocidad</li>
-
-<li>✔ Gestor de cuenta</li>
-
-</ul>
-
-<a href="compras.html" class="boton">Comprar</a>
-
+    <div class="plan-icono"><i class="ti ti-building-skyscraper"></i></div>
+    <h3>Pro Flexi</h3>
+    <p class="descripcion">Para equipos y empresas</p>
+    <div class="precio"><span class="monto">$32</span><span class="periodo">/mes</span></div>
+    <ul>
+        <li class="si"><i class="ti ti-circle-check"></i>Hasta 16 TB</li>
+        <li class="si"><i class="ti ti-circle-check"></i>Usuarios múltiples</li>
+        <li class="si"><i class="ti ti-circle-check"></i>Máxima velocidad</li>
+        <li class="si"><i class="ti ti-circle-check"></i>Gestor de cuenta</li>
+    </ul>
+    <a href="compras.html?plan=flexi" class="boton">Comprar</a>
 </div>
 
 </section>
+
+<div class="franja-confianza">
+    <span><i class="ti ti-lock"></i>Pago seguro</span>
+    <span><i class="ti ti-refresh"></i>Cancela cuando quieras</span>
+    <span><i class="ti ti-headset"></i>Soporte en español</span>
+</div>
 
 <footer>
 
