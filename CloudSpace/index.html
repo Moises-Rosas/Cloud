@@ -1,0 +1,854 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <link rel="stylesheet" href="css/stylc.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CloudSpace | Almacenamiento en la Nube</title>
+
+    <style>
+        :root {
+            --color-principal: #00d9ff;
+            --color-secundario: #00bfff;
+            --color-fondo-oscuro: #000;
+            --color-texto: #ffffff;
+            --color-texto-suave: rgba(255, 255, 255, 0.85);
+            --sombra-cyan: rgba(0, 217, 255, 0.4);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Arial, Helvetica, sans-serif;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background: var(--color-fondo-oscuro);
+            overflow-x: hidden;
+            color: var(--color-texto);
+        }
+
+        /* ===== VIDEO DE FONDO ===== */
+        #video-fondo {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: -2;
+        }
+
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(
+                to bottom,
+                rgba(0, 15, 40, 0.75),
+                rgba(0, 0, 0, 0.85)
+            );
+            z-index: -1;
+        }
+
+        /* ===== HEADER ===== */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            padding: 18px 7%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(10, 20, 45, 0.55);
+            backdrop-filter: blur(18px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+            z-index: 1000;
+        }
+
+        .logo {
+            font-size: 28px;
+            font-weight: 700;
+            color: white;
+            letter-spacing: 0.5px;
+        }
+
+        .logo span {
+            color: var(--color-principal);
+        }
+
+        nav {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        nav a {
+            color: rgba(255, 255, 255, 0.9);
+            text-decoration: none;
+            margin-left: 22px;
+            font-size: 15px;
+            font-weight: 600;
+            transition: color 0.3s ease;
+        }
+
+        nav a:hover,
+        nav a.activo {
+            color: var(--color-principal);
+        }
+
+        /* ===== DROPDOWN CATEGORÍA ===== */
+        .dropdown-menu {
+            position: relative;
+            display: inline-block;
+        }
+
+        .dropdown-btn {
+            color: rgba(255, 255, 255, 0.9);
+            text-decoration: none;
+            margin-left: 22px;
+            font-size: 15px;
+            font-weight: 600;
+            transition: color 0.3s ease;
+            cursor: pointer;
+        }
+
+        .dropdown-btn:hover {
+            color: var(--color-principal);
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background: rgba(10, 20, 45, 0.95);
+            backdrop-filter: blur(18px);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            border-radius: 12px;
+            min-width: 240px;
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.4);
+            z-index: 1000;
+            padding: 10px 0;
+            margin-top: 8px;
+        }
+
+        .dropdown-content.show {
+            display: block;
+        }
+
+        .dropdown-titulo {
+            padding: 8px 20px;
+            font-size: 12px;
+            font-weight: 700;
+            color: var(--color-principal);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .dropdown-content a {
+            display: block;
+            padding: 10px 20px;
+            color: rgba(255, 255, 255, 0.9);
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 500;
+            margin: 0;
+            transition: all 0.25s ease;
+        }
+
+        .dropdown-content a:hover {
+            background: rgba(0, 217, 255, 0.15);
+            color: var(--color-principal);
+        }
+
+        /* ===== HERO ===== */
+        .hero {
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 0 8%;
+            position: relative;
+        }
+
+        .hero-contenido {
+            max-width: 880px;
+            animation: aparecer 1.4s ease;
+        }
+
+        .hero h1 {
+            font-size: 64px;
+            font-weight: 800;
+            line-height: 1.15;
+            margin-bottom: 24px;
+            text-shadow: 0 0 30px rgba(0, 191, 255, 0.4);
+        }
+
+        .hero h1 span {
+            color: var(--color-principal);
+        }
+
+        .hero p {
+            font-size: 20px;
+            line-height: 1.7;
+            color: rgba(255, 255, 255, 0.88);
+            margin-bottom: 40px;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .botones {
+            display: flex;
+            justify-content: center;
+            gap: 18px;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 15px 38px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-size: 16px;
+            font-weight: 700;
+            transition: all 0.35s ease;
+        }
+
+        .btn-principal {
+            background: linear-gradient(135deg, var(--color-secundario), #0099cc);
+            color: white;
+            box-shadow: 0 8px 25px rgba(0, 191, 255, 0.35);
+        }
+
+        .btn-principal:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 30px rgba(0, 217, 255, 0.5);
+        }
+
+        .btn-secundario {
+            border: 2px solid rgba(255, 255, 255, 0.7);
+            color: white;
+        }
+
+        .btn-secundario:hover {
+            background: white;
+            color: #001a33;
+        }
+
+        /* Flecha hacia abajo */
+        .scroll {
+            position: absolute;
+            bottom: 35px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 28px;
+            opacity: 0.7;
+            animation: subeBaja 2s infinite;
+        }
+
+        /* ===== ONDA ===== */
+        .wave {
+            position: relative;
+            margin-top: -100px;
+            line-height: 0;
+        }
+
+        .wave svg {
+            display: block;
+            width: 100%;
+            height: 140px;
+        }
+
+        /* ===== CONTENEDOR ===== */
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* ===== TARJETAS ===== */
+        .cards {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 28px;
+            margin-top: 40px;
+            margin-bottom: 70px;
+        }
+
+        .card {
+            width: 320px;
+            padding: 36px 28px;
+            border-radius: 22px;
+            background: rgba(255, 255, 255, 0.07);
+            backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            text-align: center;
+            transition: all 0.4s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-10px);
+            background: rgba(255, 255, 255, 0.11);
+            box-shadow: 0 20px 40px rgba(0, 191, 255, 0.25);
+            border-color: rgba(0, 217, 255, 0.3);
+        }
+
+        .card h3 {
+            font-size: 24px;
+            margin-bottom: 16px;
+            color: var(--color-principal);
+        }
+
+        .card p {
+            font-size: 16px;
+            line-height: 1.65;
+            color: var(--color-texto-suave);
+        }
+
+        /* ===== ESTADÍSTICAS ===== */
+        .estadisticas {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            gap: 20px;
+            padding: 80px 20px;
+            background: rgba(0, 0, 0, 0.4);
+            backdrop-filter: blur(12px);
+            border-top: 1px solid rgba(255, 255, 255, 0.06);
+        }
+
+        .numero {
+            text-align: center;
+            padding: 15px 25px;
+            min-width: 160px;
+        }
+
+        .numero h2 {
+            font-size: 48px;
+            font-weight: 800;
+            color: var(--color-principal);
+            margin-bottom: 8px;
+            text-shadow: 0 0 20px var(--sombra-cyan);
+        }
+
+        .numero p {
+            font-size: 17px;
+            color: rgba(255, 255, 255, 0.8);
+            font-weight: 500;
+        }
+
+        /* ===== ANIMACIONES ===== */
+        @keyframes aparecer {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes subeBaja {
+            0%, 100% {
+                transform: translate(-50%, 0);
+            }
+            50% {
+                transform: translate(-50%, 12px);
+            }
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 900px) {
+            .hero h1 {
+                font-size: 46px;
+            }
+            .hero p {
+                font-size: 18px;
+            }
+            nav a {
+                margin-left: 14px;
+                font-size: 14px;
+            }
+            .dropdown-btn {
+                margin-left: 14px;
+                font-size: 14px;
+            }
+        }
+
+        @media (max-width: 600px) {
+            header {
+                padding: 15px 5%;
+                flex-direction: column;
+                gap: 12px;
+            }
+            nav {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            .hero h1 {
+                font-size: 36px;
+            }
+            .hero p {
+                font-size: 16px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- VIDEO DE FONDO -->
+    <video autoplay muted loop playsinline id="video-fondo">
+        <source src="video/Ofial.mp4" type="video/mp4">
+    </video>
+
+    <div class="overlay"></div>
+
+    <!-- HEADER -->
+    <header>
+        <div class="logo">☁ <span>CloudSpace</span></div>
+        <nav>
+            <a href="index.html" class="activo">Inicio</a>
+            <a href="paginas/planes.html">Planes</a>
+            <a href="paginas/compras.html">Comprar</a>
+            <a href="paginas/perfil.html">Perfil</a>
+            <a href="paginas/contacto.html">Contacto</a>
+            <a href="paginas/personal.html">Personales</a>
+
+            <!-- MENÚ DESPLEGABLE CATEGORÍA -->
+            <div class="dropdown-menu">
+                <a href="#" class="dropdown-btn">Categoría ▾</a>
+                <div class="dropdown-content">
+                    <div class="dropdown-titulo">otras Categoría</div>
+                    <a href="paginas/Evidencia.html">Evidencia</a>
+                    <a href="paginas/Portafolio.html">Portafolio</a>
+                    <a href="paginas/Yutube.html">Yutube</a>
+                    <a href="paginas/Juegos.html">Juegos</a>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- HERO -->
+    <section class="hero">
+        <div class="hero-contenido">
+            <h1>El Futuro del <span>Almacenamiento</span> en la Nube</h1>
+            <p>
+                Protege tus fotografías, videos, documentos y proyectos
+                con la plataforma de almacenamiento más rápida,
+                segura e inteligente.
+            </p>
+            <div class="botones">
+                <a href="paginas/planes.html" class="btn btn-secundario">Ver Planes</a>
+            </div>
+        </div>
+        <div class="scroll">⬇</div>
+    </section>
+
+    <!-- ONDA -->
+    <div class="wave">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320" preserveAspectRatio="none">
+            <path fill="#02172d" fill-opacity="1" d="M0,224L60,229.3C120,235,240,245,360,234.7C480,224,600,192,720,181.3C840,171,960,181,1080,192C1200,203,1320,213,1380,218.7L1440,224L1440,320L0,320Z"></path>
+        </svg>
+    </div>
+
+    <!-- TARJETAS -->
+    <div class="container">
+        <section class="cards">
+            <div class="card">
+                <h3>🔒 Seguridad Total</h3>
+                <p>
+                    Todos tus archivos están protegidos con
+                    cifrado de última generación y múltiples
+                    copias de seguridad automáticas.
+                </p>
+            </div>
+            <div class="card">
+                <h3>⚡ Máxima Velocidad</h3>
+                <p>
+                    Sube y descarga documentos,
+                    videos e imágenes en segundos
+                    desde cualquier dispositivo.
+                </p>
+            </div>
+            <div class="card">
+                <h3>☁ Hasta 16 TB</h3>
+                <p>
+                    Amplía tu espacio cuando quieras
+                    y almacena miles de fotografías,
+                    videos y proyectos.
+                </p>
+            </div>
+        </section>
+    </div>
+
+    <!-- ESTADÍSTICAS -->
+    <section class="estadisticas">
+        <div class="numero">
+            <h2>5M+</h2>
+            <p>Usuarios</p>
+        </div>
+        <div class="numero">
+            <h2>99.9%</h2>
+            <p>Disponibilidad</p>
+        </div>
+        <div class="numero">
+            <h2>250+</h2>
+            <p>Países y Regiones</p>
+        </div>
+        <div class="numero">
+            <h2>16 TB</h2>
+            <p>Almacenamiento</p>
+        </div>
+    </section>
+
+    <script>
+        // Abrir / cerrar el menú de Categoría
+        document.querySelector('.dropdown-btn').addEventListener('click', function(e) {
+            e.preventDefault();
+            document.querySelector('.dropdown-content').classList.toggle('show');
+        });
+
+        // Cerrar si haces clic fuera
+        window.addEventListener('click', function(e) {
+            if (!e.target.matches('.dropdown-btn') && !e.target.closest('.dropdown-menu')) {
+                document.querySelector('.dropdown-content').classList.remove('show');
+            }
+        });
+    </script>
+
+
+<!-- ===== AYUDANTE NUBI ===== -->
+<style>
+    #nubi-btn {
+        position: fixed;
+        bottom: 28px;
+        right: 28px;
+        width: 72px;
+        height: 72px;
+        border-radius: 50%;
+        background: rgba(0, 25, 50, 0.85);
+        border: 2px solid #00d9ff;
+        box-shadow: 0 0 25px rgba(0, 217, 255, 0.45);
+        cursor: pointer;
+        z-index: 9999;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: all 0.3s ease;
+        overflow: hidden;
+    }
+
+    #nubi-btn:hover {
+        transform: scale(1.08);
+        box-shadow: 0 0 35px rgba(0, 217, 255, 0.7);
+    }
+
+    #nubi-btn img {
+        width: 58px;
+        height: 58px;
+        object-fit: contain;
+        border-radius: 50%;
+    }
+
+    #nubi-panel {
+        position: fixed;
+        bottom: 115px;
+        right: 28px;
+        width: 340px;
+        max-height: 480px;
+        background: rgba(8, 18, 40, 0.95);
+        backdrop-filter: blur(18px);
+        border: 1px solid rgba(0, 217, 255, 0.25);
+        border-radius: 20px;
+        box-shadow: 0 15px 40px rgba(0, 0, 0, 0.5);
+        z-index: 9998;
+        display: none;
+        flex-direction: column;
+        overflow: hidden;
+        animation: nubiAparecer 0.3s ease;
+    }
+
+    #nubi-panel.abierto {
+        display: flex;
+    }
+
+    @keyframes nubiAparecer {
+        from { opacity: 0; transform: translateY(20px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+
+    .nubi-header {
+        background: linear-gradient(135deg, #00bfff, #0099cc);
+        padding: 14px 18px;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+    }
+
+    .nubi-header img {
+        width: 42px;
+        height: 42px;
+        border-radius: 50%;
+        background: rgba(0,0,0,0.2);
+    }
+
+    .nubi-header div h4 {
+        margin: 0;
+        font-size: 16px;
+        color: white;
+    }
+
+    .nubi-header div p {
+        margin: 0;
+        font-size: 12px;
+        color: rgba(255,255,255,0.85);
+    }
+
+    .nubi-cerrar {
+        margin-left: auto;
+        background: none;
+        border: none;
+        color: white;
+        font-size: 22px;
+        cursor: pointer;
+        line-height: 1;
+    }
+
+    .nubi-mensajes {
+        flex: 1;
+        padding: 16px;
+        overflow-y: auto;
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+    }
+
+    .nubi-msg {
+        max-width: 85%;
+        padding: 12px 15px;
+        border-radius: 16px;
+        font-size: 14px;
+        line-height: 1.5;
+    }
+
+    .nubi-msg.bot {
+        background: rgba(0, 217, 255, 0.12);
+        border: 1px solid rgba(0, 217, 255, 0.2);
+        color: #e0f7ff;
+        align-self: flex-start;
+        border-bottom-left-radius: 4px;
+    }
+
+    .nubi-msg.user {
+        background: rgba(255,255,255,0.1);
+        color: white;
+        align-self: flex-end;
+        border-bottom-right-radius: 4px;
+    }
+
+    .nubi-opciones {
+        padding: 12px 16px 18px;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        border-top: 1px solid rgba(255,255,255,0.08);
+    }
+
+    .nubi-opciones button {
+        background: rgba(0, 217, 255, 0.15);
+        border: 1px solid rgba(0, 217, 255, 0.35);
+        color: #00d9ff;
+        padding: 8px 14px;
+        border-radius: 20px;
+        font-size: 13px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.25s ease;
+    }
+
+    .nubi-opciones button:hover {
+        background: rgba(0, 217, 255, 0.3);
+        transform: translateY(-2px);
+    }
+
+
+    .nubi-mascota{ display:flex; align-items:center; justify-content:center; }
+    .nubi-svg{ width:100%; height:100%; display:block; animation: nubiFloat 3s ease-in-out infinite; }
+    .nubi-ojos{ transform-origin:50% 50%; animation: nubiParpadeo 4.2s ease-in-out infinite; }
+    .nubi-brillo{ animation: nubiBrillo 2.4s ease-in-out infinite; transform-origin:50% 50%; }
+    @keyframes nubiFloat{
+        0%, 100% { transform: translateY(0) rotate(0deg); }
+        50% { transform: translateY(-5px) rotate(-2deg); }
+    }
+    @keyframes nubiParpadeo{
+        0%, 90%, 100% { transform: scaleY(1); }
+        95% { transform: scaleY(0.12); }
+    }
+    @keyframes nubiBrillo{
+        0%, 100% { opacity: 0.35; transform: scale(0.85); }
+        50% { opacity: 1; transform: scale(1.15); }
+    }
+
+    @media (max-width: 480px) {
+        #nubi-panel {
+            width: calc(100% - 32px);
+            right: 16px;
+            bottom: 100px;
+        }
+        #nubi-btn {
+            right: 16px;
+            bottom: 20px;
+        }
+    }
+</style>
+
+<div id="nubi-btn" onclick="toggleNubi()">
+    <div class="nubi-mascota" style="width:58px;height:58px;">
+<svg class="nubi-svg" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<linearGradient id="nubiGradBtn" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0%" stop-color="#ffffff"/>
+<stop offset="100%" stop-color="#bfeaff"/>
+</linearGradient>
+</defs>
+<ellipse cx="50" cy="62" rx="36" ry="24" fill="url(#nubiGradBtn)"/>
+<circle cx="27" cy="46" r="19" fill="url(#nubiGradBtn)"/>
+<circle cx="55" cy="34" r="23" fill="url(#nubiGradBtn)"/>
+<circle cx="77" cy="48" r="17" fill="url(#nubiGradBtn)"/>
+<g class="nubi-ojos">
+<ellipse cx="41" cy="56" rx="4" ry="5.5" fill="#0b3d91"/>
+<ellipse cx="61" cy="56" rx="4" ry="5.5" fill="#0b3d91"/>
+</g>
+<ellipse cx="32" cy="67" rx="6" ry="3" fill="#ffb3c6" opacity="0.75"/>
+<ellipse cx="70" cy="67" rx="6" ry="3" fill="#ffb3c6" opacity="0.75"/>
+<path d="M46 67 Q51 73 57 67" stroke="#0b3d91" stroke-width="2.6" fill="none" stroke-linecap="round"/>
+<g class="nubi-brillo">
+<path d="M83 20 L85 26 L91 28 L85 30 L83 36 L81 30 L75 28 L81 26 Z" fill="#00d9ff"/>
+</g>
+</svg>
+</div>
+</div>
+
+<div id="nubi-panel">
+    <div class="nubi-header">
+        <div class="nubi-mascota" style="width:42px;height:42px;">
+<svg class="nubi-svg" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<linearGradient id="nubiGradHdr" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0%" stop-color="#ffffff"/>
+<stop offset="100%" stop-color="#bfeaff"/>
+</linearGradient>
+</defs>
+<ellipse cx="50" cy="62" rx="36" ry="24" fill="url(#nubiGradHdr)"/>
+<circle cx="27" cy="46" r="19" fill="url(#nubiGradHdr)"/>
+<circle cx="55" cy="34" r="23" fill="url(#nubiGradHdr)"/>
+<circle cx="77" cy="48" r="17" fill="url(#nubiGradHdr)"/>
+<g class="nubi-ojos">
+<ellipse cx="41" cy="56" rx="4" ry="5.5" fill="#0b3d91"/>
+<ellipse cx="61" cy="56" rx="4" ry="5.5" fill="#0b3d91"/>
+</g>
+<ellipse cx="32" cy="67" rx="6" ry="3" fill="#ffb3c6" opacity="0.75"/>
+<ellipse cx="70" cy="67" rx="6" ry="3" fill="#ffb3c6" opacity="0.75"/>
+<path d="M46 67 Q51 73 57 67" stroke="#0b3d91" stroke-width="2.6" fill="none" stroke-linecap="round"/>
+<g class="nubi-brillo">
+<path d="M83 20 L85 26 L91 28 L85 30 L83 36 L81 30 L75 28 L81 26 Z" fill="#00d9ff"/>
+</g>
+</svg>
+</div>
+        <div>
+            <h4>Nubi</h4>
+            <p>Tu ayudante de CloudSpace</p>
+        </div>
+        <button class="nubi-cerrar" onclick="toggleNubi()">×</button>
+    </div>
+
+    <div class="nubi-mensajes" id="nubi-mensajes">
+        <div class="nubi-msg bot">
+            ¡Hola! 👋 Soy <strong>Nubi</strong>, tu ayudante de CloudSpace.<br>
+            ¿En qué te puedo ayudar hoy?
+        </div>
+    </div>
+
+    <div class="nubi-opciones" id="nubi-opciones">
+        <button onclick="nubiRespuesta('planes')">Ver Planes</button>
+        <button onclick="nubiRespuesta('seguridad')">Seguridad</button>
+        <button onclick="nubiRespuesta('espacio')">Almacenamiento</button>
+        <button onclick="nubiRespuesta('comprar')">Cómo comprar</button>
+        <button onclick="nubiRespuesta('velocidad')">Velocidad</button>
+        <button onclick="nubiRespuesta('contacto')">Contacto</button>
+    </div>
+</div>
+
+<script>
+    function toggleNubi() {
+        document.getElementById('nubi-panel').classList.toggle('abierto');
+    }
+
+    function nubiRespuesta(tipo) {
+        const mensajes = document.getElementById('nubi-mensajes');
+
+        let textoUser = {
+            'planes': 'Quiero ver los planes',
+            'seguridad': '¿Qué seguridad tienen?',
+            'espacio': '¿Cuánto espacio ofrecen?',
+            'comprar': '¿Cómo puedo comprar?',
+            'velocidad': '¿Qué tan rápido es?',
+            'contacto': 'Quiero contactarlos'
+        };
+
+        mensajes.innerHTML += `<div class="nubi-msg user">${textoUser[tipo]}</div>`;
+
+        let respuesta = '';
+
+        switch(tipo) {
+            case 'planes':
+                respuesta = `Tenemos varios planes pensados para ti ☁️<br><br>
+                Puedes ver todos los detalles y precios en la sección <strong>Planes</strong>.<br>
+                <a href="paginas/planes.html" style="color:#00d9ff; text-decoration:underline;">Ir a Planes →</a>`;
+                break;
+
+            case 'seguridad':
+                respuesta = `🔒 <strong>Seguridad Total</strong><br><br>
+                Todos tus archivos están protegidos con cifrado de última generación y múltiples copias de seguridad automáticas. Tu información está siempre a salvo.`;
+                break;
+
+            case 'espacio':
+                respuesta = `☁ <strong>Hasta 16 TB</strong> de almacenamiento.<br><br>
+                Puedes ampliar tu espacio cuando quieras y guardar miles de fotografías, videos, documentos y proyectos.`;
+                break;
+
+            case 'comprar':
+                respuesta = `Para comprar un plan solo tienes que ir a la sección <strong>Comprar</strong>.<br><br>
+                <a href="paginas/compras.html" style="color:#00d9ff; text-decoration:underline;">Ir a Comprar →</a><br><br>
+                El proceso es rápido y seguro.`;
+                break;
+
+            case 'velocidad':
+                respuesta = `⚡ <strong>Máxima Velocidad</strong><br><br>
+                Sube y descarga documentos, videos e imágenes en segundos desde cualquier dispositivo.`;
+                break;
+
+            case 'contacto':
+                respuesta = `Puedes escribirnos o resolvernos tus dudas en la página de <strong>Contacto</strong>.<br><br>
+                <a href="paginas/contacto.html" style="color:#00d9ff; text-decoration:underline;">Ir a Contacto →</a>`;
+                break;
+        }
+
+        setTimeout(() => {
+            mensajes.innerHTML += `<div class="nubi-msg bot">${respuesta}</div>`;
+            mensajes.scrollTop = mensajes.scrollHeight;
+        }, 400);
+    }
+</script>
+
+</body>
+</html>

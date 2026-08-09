@@ -1,0 +1,1487 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Juegos | CloudSpace</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tabler-icons/2.44.0/iconfont/tabler-icons.min.css">
+<style>
+:root{
+    --navy:#0b3d91;
+    --navy-soft:#eaf0fc;
+    --ink:#1c2430;
+    --ink-soft:#5b6674;
+    --line:#e4e8f0;
+    --bg:#f4f6fb;
+    --card:#ffffff;
+}
+*{ margin:0; padding:0; box-sizing:border-box; }
+body{ font-family:'Inter', Arial, sans-serif; background:var(--bg); color:var(--ink); }
+header{ background:var(--navy); color:white; padding:16px 32px; display:flex; align-items:center; justify-content:space-between; }
+.logo{ display:flex; align-items:center; gap:10px; font-weight:700; font-size:19px; }
+nav{ display:flex; align-items:center; gap:4px; }
+nav a{ color:rgba(255,255,255,.78); text-decoration:none; font-weight:500; font-size:14px; padding:8px 14px; border-radius:8px; transition:background .15s ease, color .15s ease; }
+nav a:hover{ background:rgba(255,255,255,.1); color:white; }
+nav a.activo{ background:rgba(255,255,255,.16); color:white; }
+
+.dropdown-menu{ position:relative; display:inline-block; }
+.dropdown-btn{
+    color:rgba(255,255,255,.78);
+    text-decoration:none;
+    font-weight:500;
+    font-size:14px;
+    padding:8px 14px;
+    border-radius:8px;
+    cursor:pointer;
+    transition:background .15s ease, color .15s ease;
+}
+.dropdown-btn:hover{ background:rgba(255,255,255,.1); color:white; }
+.dropdown-content{
+    display:none;
+    position:absolute;
+    top:100%;
+    left:0;
+    background:var(--navy);
+    border-radius:10px;
+    min-width:200px;
+    box-shadow:0 12px 30px rgba(0,0,0,.3);
+    z-index:1000;
+    padding:8px 0;
+    margin-top:8px;
+}
+.dropdown-content.show{ display:block; }
+.dropdown-titulo{
+    padding:8px 16px;
+    font-size:11px;
+    font-weight:700;
+    color:rgba(255,255,255,.55);
+    text-transform:uppercase;
+    letter-spacing:.5px;
+}
+.dropdown-content a{
+    display:block;
+    padding:9px 16px;
+    color:rgba(255,255,255,.85);
+    text-decoration:none;
+    font-size:13.5px;
+    font-weight:500;
+}
+.dropdown-content a:hover{ background:rgba(255,255,255,.1); color:white; }
+
+.contenido{ max-width:640px; margin:80px auto; text-align:center; padding:0 20px; }
+.contenido .kicker{
+    display:inline-block;
+    font-size:11.5px;
+    font-weight:700;
+    letter-spacing:1.6px;
+    text-transform:uppercase;
+    color:var(--navy);
+    background:var(--navy-soft);
+    padding:6px 16px;
+    border-radius:50px;
+    margin-bottom:14px;
+}
+.contenido h2{ font-size:30px; font-weight:800; margin-bottom:12px; letter-spacing:-.3px; }
+.contenido p{ color:var(--ink-soft); font-size:15.5px; }
+footer{ background:var(--navy); color:rgba(255,255,255,.85); text-align:center; padding:26px 20px; margin-top:60px; }
+
+.hub-categorias{
+    display:flex;
+    flex-wrap:wrap;
+    justify-content:center;
+    gap:20px;
+    max-width:900px;
+    margin:0 auto 70px;
+    padding:0 20px;
+}
+.hub-card{
+    background:var(--card);
+    border:1.5px solid var(--line);
+    border-radius:16px;
+    padding:26px 22px;
+    width:190px;
+    text-align:center;
+    text-decoration:none;
+    color:var(--ink);
+    transition:transform .18s ease, border-color .18s ease;
+}
+.hub-card:hover{ transform:translateY(-4px); border-color:#c7d4ef; }
+.hub-card i{
+    width:46px; height:46px; border-radius:12px;
+    background:var(--navy-soft); color:var(--navy);
+    display:flex; align-items:center; justify-content:center;
+    font-size:20px; margin:0 auto 14px;
+}
+.hub-card h4{ font-size:15.5px; font-weight:700; margin-bottom:4px; }
+.hub-card p{ font-size:12px; color:var(--ink-soft); }
+.hub-card.actual{
+    border:2px solid var(--navy);
+    background:var(--navy-soft);
+    cursor:default;
+}
+.hub-card.actual:hover{ transform:none; }
+
+.panel-juego{
+    background:linear-gradient(180deg, rgba(0,217,255,.05), rgba(2,11,24,0) 140px), #020b18;
+    color:#fff;
+    border:1px solid rgba(255,255,255,.08);
+    border-radius:22px;
+    padding:40px 24px;
+    max-width:640px;
+    margin:36px auto 0;
+    text-align:center;
+    box-shadow:0 25px 55px rgba(0,0,0,.4), 0 0 0 1px rgba(0,217,255,.05) inset;
+}
+.panel-juego h2{ font-size:28px; margin-bottom:8px; font-weight:800; letter-spacing:-.3px; }
+.panel-juego h2 span{ color:#00d9ff; }
+.panel-juego .descripcion{ color:rgba(255,255,255,.7); margin-bottom:24px; font-size:15px; }
+.panel-juego .info{ display:flex; justify-content:center; gap:16px; margin-bottom:24px; flex-wrap:wrap; }
+.panel-juego .info-box{
+    background:rgba(255,255,255,.07);
+    border:1px solid rgba(255,255,255,.12);
+    padding:10px 20px;
+    border-radius:50px;
+    font-size:14px;
+    font-weight:600;
+}
+.panel-juego .info-box span{ color:#00d9ff; font-size:17px; }
+.tablero{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:12px;
+    max-width:420px;
+    margin:0 auto 24px;
+}
+.carta{
+    aspect-ratio:1;
+    background:rgba(255,255,255,.07);
+    border:2px solid rgba(255,255,255,.12);
+    border-radius:16px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:30px;
+    cursor:pointer;
+    transition:all .3s ease;
+    user-select:none;
+    position:relative;
+    overflow:hidden;
+}
+.carta::before{
+    content:"☁";
+    position:absolute;
+    font-size:22px;
+    opacity:.25;
+    transition:.3s;
+}
+.carta:hover:not(.volteada):not(.encontrada){
+    border-color:#00d9ff;
+    transform:translateY(-3px);
+    box-shadow:0 8px 20px rgba(0,217,255,.2);
+}
+.carta.volteada,
+.carta.encontrada{
+    background:rgba(0,217,255,.18);
+    border-color:#00d9ff;
+}
+.carta.volteada::before,
+.carta.encontrada::before{ opacity:0; }
+.carta.encontrada{ opacity:.55; cursor:default; transform:scale(.95); }
+.panel-juego .botones{ display:flex; justify-content:center; gap:12px; flex-wrap:wrap; }
+.panel-juego button{
+    padding:11px 26px;
+    border-radius:50px;
+    border:none;
+    font-size:14.5px;
+    font-weight:700;
+    cursor:pointer;
+    transition:.3s;
+}
+.btn-reiniciar{
+    background:linear-gradient(135deg,#00bfff,#0099cc);
+    color:white;
+    box-shadow:0 8px 20px rgba(0,191,255,.3);
+}
+.btn-reiniciar:hover{ transform:translateY(-2px); box-shadow:0 10px 25px rgba(0,217,255,.4); }
+.panel-juego .mensaje{ margin-top:18px; font-size:16px; font-weight:600; color:#00d9ff; min-height:24px; }
+
+/* Selector de juegos */
+.selector-juegos{
+    display:flex;
+    justify-content:center;
+    gap:6px;
+    flex-wrap:wrap;
+    max-width:680px;
+    margin:28px auto 0;
+    padding:8px;
+    background:rgba(255,255,255,.05);
+    border:1px solid var(--line);
+    border-radius:20px;
+    backdrop-filter:blur(10px);
+    -webkit-backdrop-filter:blur(10px);
+}
+.tab-juego{
+    background:transparent;
+    color:var(--ink-soft);
+    border:1px solid transparent;
+    padding:11px 20px;
+    border-radius:50px;
+    font-size:13.5px;
+    font-weight:700;
+    letter-spacing:.2px;
+    cursor:pointer;
+    transition:.2s ease;
+}
+.tab-juego:hover{ background:rgba(255,255,255,.07); color:var(--ink); }
+.tab-juego.activo{
+    background:linear-gradient(135deg,var(--navy),var(--navy-dark));
+    color:#fff;
+    box-shadow:0 8px 20px rgba(0,217,255,.28);
+}
+
+/* Subida Rápida */
+.btn-subir-archivo{
+    width:170px;
+    height:170px;
+    border-radius:50%;
+    background:linear-gradient(135deg,#00bfff,#0099cc);
+    border:none;
+    color:white;
+    font-size:22px;
+    font-weight:800;
+    cursor:pointer;
+    box-shadow:0 0 50px rgba(0,217,255,.35);
+    transition:all .15s ease;
+    margin:10px auto 26px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    flex-direction:column;
+    gap:6px;
+    user-select:none;
+}
+.btn-subir-archivo:hover:not(:disabled){ transform:scale(1.05); box-shadow:0 0 70px rgba(0,217,255,.5); }
+.btn-subir-archivo:active:not(:disabled){ transform:scale(0.92); }
+.btn-subir-archivo:disabled{ opacity:.5; cursor:not-allowed; box-shadow:none; }
+.btn-subir-archivo .icono{ font-size:36px; }
+
+.barra-container{
+    width:100%;
+    max-width:340px;
+    height:14px;
+    background:rgba(255,255,255,.1);
+    border-radius:20px;
+    margin:0 auto 20px;
+    overflow:hidden;
+}
+.barra{
+    height:100%;
+    width:100%;
+    background:linear-gradient(90deg,#00d9ff,#00ffaa);
+    border-radius:20px;
+    transition:width .1s linear;
+}
+
+/* Defensor de la Nube */
+#juego-defensor .area-defensor{
+    position:relative;
+    width:100%;
+    height:380px;
+    background:rgba(0,0,0,.35);
+    border:1px solid rgba(255,255,255,.1);
+    border-radius:24px;
+    overflow:hidden;
+    margin-bottom:22px;
+}
+#juego-defensor .nube-central-defensor{
+    position:absolute;
+    top:50%;
+    left:50%;
+    transform:translate(-50%,-50%);
+    font-size:70px;
+    opacity:.2;
+    pointer-events:none;
+    z-index:1;
+}
+#juego-defensor .virus{
+    position:absolute;
+    font-size:32px;
+    cursor:pointer;
+    user-select:none;
+    z-index:5;
+    transition:transform .15s ease;
+    filter:drop-shadow(0 0 8px rgba(255,50,50,.6));
+}
+#juego-defensor .virus:hover{ transform:scale(1.3); }
+
+/* Organiza tus Archivos */
+#juego-organiza .archivos-zona-organiza{
+    display:flex;
+    justify-content:center;
+    flex-wrap:wrap;
+    gap:14px;
+    min-height:80px;
+    margin-bottom:26px;
+    padding:14px;
+    background:rgba(255,255,255,.04);
+    border-radius:18px;
+    border:1px dashed rgba(255,255,255,.15);
+}
+#juego-organiza .archivo{
+    width:62px;
+    height:62px;
+    background:rgba(255,255,255,.08);
+    border:2px solid rgba(255,255,255,.15);
+    border-radius:14px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:28px;
+    cursor:grab;
+    transition:.25s;
+    user-select:none;
+}
+#juego-organiza .archivo:active{ cursor:grabbing; }
+#juego-organiza .archivo.dragging{ opacity:.5; transform:scale(1.1); }
+#juego-organiza .carpetas-organiza{
+    display:grid;
+    grid-template-columns:repeat(auto-fit, minmax(140px, 1fr));
+    gap:16px;
+    margin-bottom:22px;
+}
+#juego-organiza .carpeta-organiza{
+    background:rgba(255,255,255,.06);
+    border:2px solid rgba(255,255,255,.12);
+    border-radius:18px;
+    padding:16px 12px;
+    min-height:120px;
+    transition:.3s;
+}
+#juego-organiza .carpeta-organiza.sobre{
+    border-color:#00d9ff;
+    background:rgba(0,217,255,.12);
+    box-shadow:0 0 25px rgba(0,217,255,.2);
+}
+#juego-organiza .carpeta-organiza h3{
+    font-size:14.5px;
+    margin-bottom:10px;
+    color:#00d9ff;
+}
+#juego-organiza .carpeta-contenido-organiza{
+    display:flex;
+    flex-wrap:wrap;
+    gap:7px;
+    justify-content:center;
+    min-height:54px;
+}
+
+/* Constructor de Nube */
+#juego-constructor .storage-box-constructor{
+    background:rgba(255,255,255,.06);
+    border:1px solid rgba(255,255,255,.12);
+    border-radius:18px;
+    padding:20px;
+    margin-bottom:22px;
+}
+#juego-constructor .storage-info-constructor{
+    display:flex;
+    justify-content:space-between;
+    margin-bottom:10px;
+    font-size:15.5px;
+    font-weight:600;
+}
+#juego-constructor .storage-info-constructor span{ color:#00d9ff; }
+#juego-constructor .barra-container-constructor{
+    width:100%;
+    height:18px;
+    background:rgba(255,255,255,.1);
+    border-radius:20px;
+    overflow:hidden;
+}
+#juego-constructor .barra-constructor{
+    height:100%;
+    width:0%;
+    background:linear-gradient(90deg,#00bfff,#00ffaa);
+    border-radius:20px;
+    transition:width .6s ease;
+}
+#juego-constructor .pregunta-box-constructor{
+    background:rgba(255,255,255,.05);
+    border:1px solid rgba(255,255,255,.1);
+    border-radius:18px;
+    padding:22px 18px;
+    margin-bottom:20px;
+    min-height:190px;
+}
+#juego-constructor .pregunta-box-constructor h3{
+    font-size:17px;
+    margin-bottom:20px;
+    line-height:1.4;
+    font-weight:700;
+}
+#juego-constructor .opciones-constructor{
+    display:flex;
+    flex-direction:column;
+    gap:10px;
+}
+#juego-constructor .opciones-constructor button{
+    background:rgba(255,255,255,.07);
+    border:2px solid rgba(255,255,255,.12);
+    color:white;
+    padding:12px 18px;
+    border-radius:12px;
+    font-size:14.5px;
+    font-weight:600;
+    cursor:pointer;
+    transition:.25s;
+}
+#juego-constructor .opciones-constructor button:hover{
+    border-color:#00d9ff;
+    background:rgba(0,217,255,.15);
+}
+#juego-constructor .opciones-constructor button.correcta{
+    border-color:#00ff9d;
+    background:rgba(0,255,157,.15);
+}
+#juego-constructor .opciones-constructor button.incorrecta{
+    border-color:#ff4d4d;
+    background:rgba(255,77,77,.15);
+}
+
+@media (max-width:480px){
+    .carta{ font-size:22px; }
+    .panel-juego h2{ font-size:24px; }
+    .btn-subir-archivo{ width:140px; height:140px; font-size:18px; }
+    .btn-subir-archivo .icono{ font-size:30px; }
+    #juego-defensor .area-defensor{ height:300px; }
+    #juego-defensor .virus{ font-size:26px; }
+    #juego-organiza .archivo{ width:52px; height:52px; font-size:24px; }
+}
+
+
+/* ===================================================
+   TEMA OSCURO — a juego con el fondo de index.html
+   =================================================== */
+:root{
+    --navy:#00d9ff;
+    --navy-dark:#00bfff;
+    --navy-soft:rgba(0,217,255,.14);
+    --green:#2ee6a6;
+    --green-soft:rgba(46,230,166,.14);
+    --amber:#ffc65c;
+    --amber-soft:rgba(255,198,92,.14);
+    --ink:#eaf6ff;
+    --ink-soft:rgba(234,246,255,.62);
+    --line:rgba(255,255,255,.14);
+    --bg:#04101f;
+    --card:rgba(255,255,255,.06);
+}
+
+body{
+    background:
+        linear-gradient(to bottom, rgba(0,40,95,.85), rgba(225,240,255,.10), rgba(0,10,25,.93)),
+        radial-gradient(circle at 15% -10%, rgba(0,217,255,.18), transparent 45%),
+        radial-gradient(circle at 85% 110%, rgba(0,191,255,.12), transparent 50%),
+        #02070f !important;
+    background-attachment:fixed;
+}
+
+header{
+    background:rgba(10,20,45,.55) !important;
+    backdrop-filter:blur(18px);
+    -webkit-backdrop-filter:blur(18px);
+    border-bottom:1px solid rgba(255,255,255,.08);
+}
+
+footer{
+    background:rgba(10,20,45,.55) !important;
+    backdrop-filter:blur(18px);
+    -webkit-backdrop-filter:blur(18px);
+    border-top:1px solid rgba(255,255,255,.06);
+}
+
+.dropdown-content{
+    background:rgba(8,18,40,.96) !important;
+    border:1px solid rgba(0,217,255,.2);
+}
+
+input, textarea, select{
+    background:rgba(255,255,255,.06) !important;
+    color:#eaf6ff !important;
+    border-color:rgba(255,255,255,.18) !important;
+}
+input::placeholder, textarea::placeholder{ color:rgba(234,246,255,.35); }
+
+.btn-primario, .btn-plan, .plan .boton, .boton{
+    background:linear-gradient(135deg,#00bfff,#0099cc) !important;
+    color:white !important;
+    border-color:transparent !important;
+}
+.plan.destacado .boton:hover, .boton:hover{
+    background:linear-gradient(135deg,#00d9ff,#0099cc) !important;
+    color:white !important;
+}
+.btn-secundario{
+    background:rgba(0,217,255,.12) !important;
+    color:#00d9ff !important;
+}
+.btn-texto{ color:rgba(234,246,255,.6) !important; }
+
+.card, .plan, .persona, .hub-card, .formulario, .info{
+    box-shadow:0 20px 45px rgba(0,0,0,.35) !important;
+}
+
+::selection{ background:rgba(0,217,255,.35); }
+
+</style>
+</head>
+<body>
+
+<header>
+<div class="logo"><i class="ti ti-cloud"></i> CloudSpace</div>
+<nav>
+<a href="../index.html">Inicio</a>
+<a href="planes.html">Planes</a>
+<a href="compras.html">Comprar</a>
+<a href="perfil.html">Perfil</a>
+<a href="contacto.html">Contacto</a>
+<a href="personal.html">Personales</a>
+<div class="dropdown-menu">
+<a href="#" class="dropdown-btn">Categoría ▾</a>
+<div class="dropdown-content">
+<div class="dropdown-titulo">Otras categorías</div>
+<a href="Evidencia.html">Evidencia</a>
+<a href="Portafolio.html">Portafolio</a>
+<a href="Yutube.html">Yutube</a>
+<a href="Juegos.html">Juegos</a>
+</div>
+</div>
+</nav>
+</header>
+
+<section class="contenido">
+<span class="kicker">Zona de juegos</span>
+<h2>Juegos</h2>
+<p>Elige un mini-juego temático de CloudSpace y ponte a prueba.</p>
+</section>
+
+<div class="selector-juegos">
+<button class="tab-juego activo" data-juego="memory" onclick="mostrarJuego('memory')">🧠 Memory Cloud</button>
+<button class="tab-juego" data-juego="subida" onclick="mostrarJuego('subida')">⚡ Subida Rápida</button>
+<button class="tab-juego" data-juego="defensor" onclick="mostrarJuego('defensor')">🦠 Defensor de la Nube</button>
+<button class="tab-juego" data-juego="organiza" onclick="mostrarJuego('organiza')">🗂 Organiza tus Archivos</button>
+<button class="tab-juego" data-juego="constructor" onclick="mostrarJuego('constructor')">🏗 Constructor de Nube</button>
+</div>
+
+<section class="panel-juego" id="juego-memory">
+<h2>Memory <span>Cloud</span></h2>
+<p class="descripcion">Empareja los iconos relacionados con el almacenamiento en la nube</p>
+
+<div class="info">
+<div class="info-box">Movimientos: <span id="movimientos">0</span></div>
+<div class="info-box">Parejas: <span id="parejas">0</span>/8</div>
+</div>
+
+<div class="tablero" id="tablero"></div>
+
+<div class="mensaje" id="mensaje"></div>
+
+<div class="botones">
+<button class="btn-reiniciar" onclick="iniciarJuego()">Reiniciar</button>
+</div>
+</section>
+
+<section class="panel-juego" id="juego-subida" style="display:none;">
+<h2>Subida <span>Rápida</span></h2>
+<p class="descripcion">Haz clic lo más rápido posible para subir archivos a la nube</p>
+
+<div class="info">
+<div class="info-box">Archivos: <span id="archivosSubida">0</span></div>
+<div class="info-box">Tiempo: <span id="tiempoSubida">10.0</span>s</div>
+<div class="info-box">Mejor: <span id="recordSubida">0</span></div>
+</div>
+
+<button class="btn-subir-archivo" id="btnSubirArchivo" disabled>
+    <span class="icono">☁</span>
+    <span>SUBIR</span>
+</button>
+
+<div class="barra-container">
+    <div class="barra" id="barraSubida"></div>
+</div>
+
+<div class="mensaje" id="mensajeSubida">Presiona "Empezar" para comenzar</div>
+
+<div class="botones">
+<button class="btn-reiniciar" id="btnEmpezarSubida" onclick="empezarSubida()">Empezar</button>
+</div>
+</section>
+
+<section class="panel-juego" id="juego-defensor" style="display:none;">
+<h2>Defensor de la <span>Nube</span></h2>
+<p class="descripcion">Elimina los virus antes de que infecten tu almacenamiento</p>
+
+<div class="info">
+<div class="info-box">Puntos: <span id="puntosDefensor">0</span></div>
+<div class="info-box">Vidas: <span id="vidasDefensor">5</span></div>
+<div class="info-box">Récord: <span id="recordDefensor">0</span></div>
+</div>
+
+<div class="area-defensor" id="areaJuegoDefensor">
+    <div class="nube-central-defensor">☁</div>
+</div>
+
+<div class="mensaje" id="mensajeDefensor">Presiona "Empezar" para proteger la nube</div>
+
+<div class="botones">
+<button class="btn-reiniciar" id="btnEmpezarDefensor" onclick="empezarDefensor()">Empezar</button>
+</div>
+</section>
+
+<section class="panel-juego" id="juego-organiza" style="display:none;">
+<h2>Organiza tus <span>Archivos</span></h2>
+<p class="descripcion">Arrastra cada archivo a la carpeta correcta</p>
+
+<div class="info">
+<div class="info-box">Correctos: <span id="correctosOrganiza">0</span></div>
+<div class="info-box">Restantes: <span id="restantesOrganiza">0</span></div>
+</div>
+
+<div class="archivos-zona-organiza" id="zonaArchivosOrganiza"></div>
+
+<div class="carpetas-organiza">
+    <div class="carpeta-organiza" data-tipo="foto" ondragover="allowDropOrganiza(event)" ondragleave="dragLeaveOrganiza(event)" ondrop="dropOrganiza(event)">
+        <h3>📷 Fotos</h3>
+        <div class="carpeta-contenido-organiza"></div>
+    </div>
+    <div class="carpeta-organiza" data-tipo="video" ondragover="allowDropOrganiza(event)" ondragleave="dragLeaveOrganiza(event)" ondrop="dropOrganiza(event)">
+        <h3>🎥 Videos</h3>
+        <div class="carpeta-contenido-organiza"></div>
+    </div>
+    <div class="carpeta-organiza" data-tipo="doc" ondragover="allowDropOrganiza(event)" ondragleave="dragLeaveOrganiza(event)" ondrop="dropOrganiza(event)">
+        <h3>📄 Documentos</h3>
+        <div class="carpeta-contenido-organiza"></div>
+    </div>
+    <div class="carpeta-organiza" data-tipo="musica" ondragover="allowDropOrganiza(event)" ondragleave="dragLeaveOrganiza(event)" ondrop="dropOrganiza(event)">
+        <h3>🎵 Música</h3>
+        <div class="carpeta-contenido-organiza"></div>
+    </div>
+</div>
+
+<div class="mensaje" id="mensajeOrganiza">Arrastra los archivos a su carpeta correspondiente</div>
+
+<div class="botones">
+<button class="btn-reiniciar" onclick="iniciarOrganiza()">Reiniciar</button>
+</div>
+</section>
+
+<section class="panel-juego" id="juego-constructor" style="display:none;">
+<h2>Constructor de <span>Nube</span></h2>
+<p class="descripcion">Responde correctamente para ampliar tu almacenamiento hasta 16 TB</p>
+
+<div class="storage-box-constructor">
+    <div class="storage-info-constructor">
+        <div>Almacenamiento actual</div>
+        <div><span id="storageActualConstructor">1 GB</span> / 16 TB</div>
+    </div>
+    <div class="barra-container-constructor">
+        <div class="barra-constructor" id="barraConstructor"></div>
+    </div>
+</div>
+
+<div class="pregunta-box-constructor">
+    <h3 id="preguntaConstructor">Presiona "Empezar" para construir tu nube</h3>
+    <div class="opciones-constructor" id="opcionesConstructor"></div>
+</div>
+
+<div class="mensaje" id="mensajeConstructor"></div>
+
+<div class="botones">
+<button class="btn-reiniciar" id="btnEmpezarConstructor" onclick="empezarConstructor()">Empezar</button>
+</div>
+</section>
+
+
+<footer>CloudSpace © 2026</footer>
+
+
+<script>
+const iconosJuego = ['📁', '📷', '🎥', '🔒', '☁', '💾', '📄', '🔑'];
+let cartasJuego = [];
+let volteadasJuego = [];
+let bloqueadoJuego = false;
+let movimientosJuego = 0;
+let parejasJuego = 0;
+
+function iniciarJuego(){
+    movimientosJuego = 0;
+    parejasJuego = 0;
+    volteadasJuego = [];
+    bloqueadoJuego = false;
+
+    document.getElementById('movimientos').textContent = 0;
+    document.getElementById('parejas').textContent = '0';
+    document.getElementById('mensaje').textContent = '';
+
+    cartasJuego = [...iconosJuego, ...iconosJuego].sort(() => Math.random() - 0.5);
+
+    const tablero = document.getElementById('tablero');
+    tablero.innerHTML = '';
+
+    cartasJuego.forEach(function(icono){
+        const carta = document.createElement('div');
+        carta.classList.add('carta');
+        carta.dataset.valor = icono;
+        carta.addEventListener('click', function(){ voltearCarta(carta); });
+        tablero.appendChild(carta);
+    });
+}
+
+function voltearCarta(carta){
+    if(bloqueadoJuego || carta.classList.contains('volteada') || carta.classList.contains('encontrada')){
+        return;
+    }
+
+    carta.classList.add('volteada');
+    carta.textContent = carta.dataset.valor;
+    volteadasJuego.push(carta);
+
+    if(volteadasJuego.length === 2){
+        movimientosJuego++;
+        document.getElementById('movimientos').textContent = movimientosJuego;
+        bloqueadoJuego = true;
+
+        const carta1 = volteadasJuego[0];
+        const carta2 = volteadasJuego[1];
+
+        if(carta1.dataset.valor === carta2.dataset.valor){
+            setTimeout(function(){
+                carta1.classList.add('encontrada');
+                carta2.classList.add('encontrada');
+                volteadasJuego = [];
+                bloqueadoJuego = false;
+                parejasJuego++;
+                document.getElementById('parejas').textContent = parejasJuego;
+
+                if(parejasJuego === 8){
+                    document.getElementById('mensaje').textContent = '¡Felicidades! Lo completaste en ' + movimientosJuego + ' movimientos 🎉';
+                }
+            }, 400);
+        } else {
+            setTimeout(function(){
+                carta1.classList.remove('volteada');
+                carta2.classList.remove('volteada');
+                carta1.textContent = '';
+                carta2.textContent = '';
+                volteadasJuego = [];
+                bloqueadoJuego = false;
+            }, 900);
+        }
+    }
+}
+
+iniciarJuego();
+
+function mostrarJuego(nombre){
+    document.querySelectorAll('.panel-juego').forEach(function(panel){
+        panel.style.display = (panel.id === 'juego-' + nombre) ? '' : 'none';
+    });
+    document.querySelectorAll('.tab-juego').forEach(function(tab){
+        if(tab.dataset.juego === nombre){
+            tab.classList.add('activo');
+        } else {
+            tab.classList.remove('activo');
+        }
+    });
+}
+</script>
+
+<script>
+let archivosSubida = 0;
+let tiempoSubida = 10;
+let intervaloSubida = null;
+let jugandoSubida = false;
+let recordSubida = localStorage.getItem('cloudspace_record_subida') || 0;
+
+document.getElementById('recordSubida').textContent = recordSubida;
+
+const btnSubirArchivo = document.getElementById('btnSubirArchivo');
+const btnEmpezarSubida = document.getElementById('btnEmpezarSubida');
+const barraSubida = document.getElementById('barraSubida');
+const mensajeSubida = document.getElementById('mensajeSubida');
+
+btnSubirArchivo.addEventListener('click', function(){
+    if(!jugandoSubida) return;
+    archivosSubida++;
+    document.getElementById('archivosSubida').textContent = archivosSubida;
+});
+
+function empezarSubida(){
+    archivosSubida = 0;
+    tiempoSubida = 10;
+    jugandoSubida = true;
+
+    document.getElementById('archivosSubida').textContent = 0;
+    document.getElementById('tiempoSubida').textContent = '10.0';
+    barraSubida.style.width = '100%';
+    mensajeSubida.textContent = '¡Rápido! Sube todos los archivos que puedas';
+    btnSubirArchivo.disabled = false;
+    btnEmpezarSubida.disabled = true;
+    btnEmpezarSubida.textContent = 'Jugando...';
+
+    clearInterval(intervaloSubida);
+
+    intervaloSubida = setInterval(function(){
+        tiempoSubida -= 0.1;
+        if(tiempoSubida < 0) tiempoSubida = 0;
+
+        document.getElementById('tiempoSubida').textContent = tiempoSubida.toFixed(1);
+        barraSubida.style.width = (tiempoSubida / 10 * 100) + '%';
+
+        if(tiempoSubida <= 0){
+            terminarSubida();
+        }
+    }, 100);
+}
+
+function terminarSubida(){
+    clearInterval(intervaloSubida);
+    jugandoSubida = false;
+    btnSubirArchivo.disabled = true;
+    btnEmpezarSubida.disabled = false;
+    btnEmpezarSubida.textContent = 'Otra vez';
+
+    if(archivosSubida > recordSubida){
+        recordSubida = archivosSubida;
+        localStorage.setItem('cloudspace_record_subida', recordSubida);
+        document.getElementById('recordSubida').textContent = recordSubida;
+        mensajeSubida.textContent = '¡Nuevo récord! Subiste ' + archivosSubida + ' archivos 🚀';
+    } else {
+        mensajeSubida.textContent = 'Tiempo terminado. Subiste ' + archivosSubida + ' archivos';
+    }
+}
+</script>
+
+<script>
+/* ===== Defensor de la Nube ===== */
+let puntosDefensor = 0;
+let vidasDefensor = 5;
+let jugandoDefensor = false;
+let intervaloVirusDefensor = null;
+let recordDefensor = localStorage.getItem('cloudspace_defensor_record') || 0;
+
+document.getElementById('recordDefensor').textContent = recordDefensor;
+
+const areaDefensor = document.getElementById('areaJuegoDefensor');
+const mensajeDefensor = document.getElementById('mensajeDefensor');
+const btnEmpezarDefensor = document.getElementById('btnEmpezarDefensor');
+
+function empezarDefensor(){
+    areaDefensor.querySelectorAll('.virus').forEach(function(v){ v.remove(); });
+
+    puntosDefensor = 0;
+    vidasDefensor = 5;
+    jugandoDefensor = true;
+
+    document.getElementById('puntosDefensor').textContent = 0;
+    document.getElementById('vidasDefensor').textContent = 5;
+    mensajeDefensor.textContent = '¡Elimina los virus haciendo clic en ellos!';
+    btnEmpezarDefensor.disabled = true;
+    btnEmpezarDefensor.textContent = 'Jugando...';
+
+    clearInterval(intervaloVirusDefensor);
+    intervaloVirusDefensor = setInterval(crearVirusDefensor, 850);
+}
+
+function crearVirusDefensor(){
+    if(!jugandoDefensor) return;
+
+    const virus = document.createElement('div');
+    virus.classList.add('virus');
+    virus.textContent = '🦠';
+
+    const maxX = areaDefensor.clientWidth - 45;
+    const maxY = areaDefensor.clientHeight - 45;
+    virus.style.left = Math.random() * maxX + 'px';
+    virus.style.top = Math.random() * maxY + 'px';
+
+    virus.addEventListener('click', function(){
+        if(!jugandoDefensor) return;
+        virus.remove();
+        puntosDefensor += 10;
+        document.getElementById('puntosDefensor').textContent = puntosDefensor;
+    });
+
+    areaDefensor.appendChild(virus);
+
+    setTimeout(function(){
+        if(virus.parentElement && jugandoDefensor){
+            virus.remove();
+            vidasDefensor--;
+            document.getElementById('vidasDefensor').textContent = vidasDefensor;
+
+            if(vidasDefensor <= 0){
+                terminarDefensor();
+            }
+        }
+    }, 2000);
+}
+
+function terminarDefensor(){
+    jugandoDefensor = false;
+    clearInterval(intervaloVirusDefensor);
+    btnEmpezarDefensor.disabled = false;
+    btnEmpezarDefensor.textContent = 'Otra vez';
+
+    if(puntosDefensor > recordDefensor){
+        recordDefensor = puntosDefensor;
+        localStorage.setItem('cloudspace_defensor_record', recordDefensor);
+        document.getElementById('recordDefensor').textContent = recordDefensor;
+        mensajeDefensor.textContent = '¡Nuevo récord! ' + puntosDefensor + ' puntos 🎉';
+    } else {
+        mensajeDefensor.textContent = 'Game Over — Puntuación: ' + puntosDefensor;
+    }
+}
+
+/* ===== Organiza tus Archivos ===== */
+const tiposOrganiza = [
+    { icono: '📷', tipo: 'foto' },
+    { icono: '🖼️', tipo: 'foto' },
+    { icono: '🎥', tipo: 'video' },
+    { icono: '🎬', tipo: 'video' },
+    { icono: '📄', tipo: 'doc' },
+    { icono: '📑', tipo: 'doc' },
+    { icono: '🎵', tipo: 'musica' },
+    { icono: '🎧', tipo: 'musica' }
+];
+
+let correctosOrganiza = 0;
+let totalOrganiza = 0;
+
+function iniciarOrganiza(){
+    correctosOrganiza = 0;
+    document.getElementById('correctosOrganiza').textContent = 0;
+    document.getElementById('mensajeOrganiza').textContent = 'Arrastra los archivos a su carpeta correspondiente';
+
+    document.querySelectorAll('.carpeta-contenido-organiza').forEach(function(c){ c.innerHTML = ''; });
+
+    const zona = document.getElementById('zonaArchivosOrganiza');
+    zona.innerHTML = '';
+
+    const mezcla = [...tiposOrganiza].sort(function(){ return Math.random() - 0.5; });
+    totalOrganiza = mezcla.length;
+    document.getElementById('restantesOrganiza').textContent = totalOrganiza;
+
+    mezcla.forEach(function(item, index){
+        const div = document.createElement('div');
+        div.className = 'archivo';
+        div.textContent = item.icono;
+        div.draggable = true;
+        div.dataset.tipo = item.tipo;
+        div.id = 'archivo-organiza-' + index;
+
+        div.addEventListener('dragstart', function(e){
+            e.dataTransfer.setData('text', div.id);
+            div.classList.add('dragging');
+        });
+
+        div.addEventListener('dragend', function(){
+            div.classList.remove('dragging');
+        });
+
+        zona.appendChild(div);
+    });
+}
+
+function allowDropOrganiza(e){
+    e.preventDefault();
+    e.currentTarget.classList.add('sobre');
+}
+
+function dragLeaveOrganiza(e){
+    e.currentTarget.classList.remove('sobre');
+}
+
+function dropOrganiza(e){
+    e.preventDefault();
+    e.currentTarget.classList.remove('sobre');
+
+    const id = e.dataTransfer.getData('text');
+    const archivo = document.getElementById(id);
+    if(!archivo) return;
+
+    const tipoArchivo = archivo.dataset.tipo;
+    const tipoCarpeta = e.currentTarget.dataset.tipo;
+
+    if(tipoArchivo === tipoCarpeta){
+        e.currentTarget.querySelector('.carpeta-contenido-organiza').appendChild(archivo);
+        archivo.draggable = false;
+        archivo.style.cursor = 'default';
+        correctosOrganiza++;
+        document.getElementById('correctosOrganiza').textContent = correctosOrganiza;
+        document.getElementById('restantesOrganiza').textContent = totalOrganiza - correctosOrganiza;
+
+        if(correctosOrganiza === totalOrganiza){
+            document.getElementById('mensajeOrganiza').textContent = '¡Perfecto! Todos los archivos están organizados 🎉';
+        }
+    } else {
+        e.currentTarget.style.borderColor = '#ff4d4d';
+        setTimeout(function(){
+            e.currentTarget.style.borderColor = '';
+        }, 400);
+    }
+}
+
+/* ===== Constructor de Nube ===== */
+const nivelesConstructor = [
+    { gb: 1, texto: "1 GB" },
+    { gb: 5, texto: "5 GB" },
+    { gb: 20, texto: "20 GB" },
+    { gb: 50, texto: "50 GB" },
+    { gb: 100, texto: "100 GB" },
+    { gb: 250, texto: "250 GB" },
+    { gb: 500, texto: "500 GB" },
+    { gb: 1024, texto: "1 TB" },
+    { gb: 2048, texto: "2 TB" },
+    { gb: 5120, texto: "5 TB" },
+    { gb: 10240, texto: "10 TB" },
+    { gb: 16384, texto: "16 TB" }
+];
+
+const preguntasConstructor = [
+    { pregunta: "¿Qué significa la 'C' en Cloud Computing?", opciones: ["Central", "Cloud (Nube)", "Computer", "Cyber"], correcta: 1 },
+    { pregunta: "¿Cuál es una ventaja principal del almacenamiento en la nube?", opciones: ["Solo funciona sin internet", "Acceso desde cualquier lugar", "Ocupa mucho espacio físico", "Es más lento"], correcta: 1 },
+    { pregunta: "¿Qué tecnología se usa para proteger los archivos en la nube?", opciones: ["Cifrado (Encriptación)", "Pintura digital", "Compresión de imágenes", "Solo contraseñas débiles"], correcta: 0 },
+    { pregunta: "¿Cuánto es 1024 GB?", opciones: ["1 MB", "1 TB", "1 PB", "10 TB"], correcta: 1 },
+    { pregunta: "¿Qué empresa es famosa por su servicio de almacenamiento en la nube?", opciones: ["Solo empresas locales", "Google, Dropbox, OneDrive...", "Únicamente bancos", "Ninguna"], correcta: 1 },
+    { pregunta: "¿Qué significa 'backup'?", opciones: ["Borrar archivos", "Copia de seguridad", "Subir fotos", "Crear una carpeta"], correcta: 1 },
+    { pregunta: "¿Cuál es más seguro para datos importantes?", opciones: ["Solo en el celular", "En la nube con cifrado + backup", "En un papel", "Sin contraseña"], correcta: 1 },
+    { pregunta: "¿Qué permite la sincronización en la nube?", opciones: ["Que los archivos se actualicen en todos tus dispositivos", "Borrar todo automáticamente", "Hacer el internet más lento", "Nada"], correcta: 0 },
+    { pregunta: "¿Qué unidad es más grande?", opciones: ["GB", "MB", "TB", "KB"], correcta: 2 },
+    { pregunta: "¿Para qué sirve el cifrado de extremo a extremo?", opciones: ["Hacer los archivos más pesados", "Que solo tú puedas leer tus datos", "Eliminar virus", "Aumentar la velocidad"], correcta: 1 },
+    { pregunta: "¿Qué pasa si subes un archivo a la nube?", opciones: ["Se borra del dispositivo obligatoriamente", "Queda guardado de forma segura y accesible", "Se vuelve público siempre", "Desaparece en 24 horas"], correcta: 1 }
+];
+
+let nivelActualConstructor = 0;
+let preguntaActualConstructor = 0;
+let jugandoConstructor = false;
+const maxGBConstructor = 16384;
+
+function empezarConstructor(){
+    nivelActualConstructor = 0;
+    preguntaActualConstructor = 0;
+    jugandoConstructor = true;
+    document.getElementById('btnEmpezarConstructor').style.display = 'none';
+    document.getElementById('mensajeConstructor').textContent = '';
+    actualizarStorageConstructor();
+    mostrarPreguntaConstructor();
+}
+
+function actualizarStorageConstructor(){
+    const actual = nivelesConstructor[nivelActualConstructor];
+    document.getElementById('storageActualConstructor').textContent = actual.texto;
+    const porcentaje = (actual.gb / maxGBConstructor) * 100;
+    document.getElementById('barraConstructor').style.width = porcentaje + '%';
+}
+
+function mostrarPreguntaConstructor(){
+    if(nivelActualConstructor >= nivelesConstructor.length - 1){
+        document.getElementById('preguntaConstructor').textContent = '¡Felicidades! Has construido una nube de 16 TB';
+        document.getElementById('opcionesConstructor').innerHTML = '';
+        document.getElementById('mensajeConstructor').textContent = '¡Nube máxima alcanzada! 🚀☁';
+        const btn = document.getElementById('btnEmpezarConstructor');
+        btn.style.display = 'inline-block';
+        btn.textContent = 'Jugar de nuevo';
+        jugandoConstructor = false;
+        return;
+    }
+
+    preguntaActualConstructor = Math.floor(Math.random() * preguntasConstructor.length);
+    const p = preguntasConstructor[preguntaActualConstructor];
+
+    document.getElementById('preguntaConstructor').textContent = p.pregunta;
+    const contenedor = document.getElementById('opcionesConstructor');
+    contenedor.innerHTML = '';
+
+    p.opciones.forEach(function(op, index){
+        const btn = document.createElement('button');
+        btn.textContent = op;
+        btn.onclick = function(){ seleccionarOpcionConstructor(index); };
+        contenedor.appendChild(btn);
+    });
+}
+
+function seleccionarOpcionConstructor(index){
+    if(!jugandoConstructor) return;
+
+    const p = preguntasConstructor[preguntaActualConstructor];
+    const botones = document.querySelectorAll('#opcionesConstructor button');
+
+    botones.forEach(function(b){ b.onclick = null; });
+
+    if(index === p.correcta){
+        botones[index].classList.add('correcta');
+        document.getElementById('mensajeConstructor').textContent = '¡Correcto! + Almacenamiento';
+        nivelActualConstructor++;
+        setTimeout(function(){
+            actualizarStorageConstructor();
+            document.getElementById('mensajeConstructor').textContent = '';
+            mostrarPreguntaConstructor();
+        }, 900);
+    } else {
+        botones[index].classList.add('incorrecta');
+        botones[p.correcta].classList.add('correcta');
+        document.getElementById('mensajeConstructor').textContent = 'Incorrecto. Intenta de nuevo';
+        setTimeout(function(){
+            document.getElementById('mensajeConstructor').textContent = '';
+            mostrarPreguntaConstructor();
+        }, 1200);
+    }
+}
+</script>
+
+<script>
+document.querySelectorAll('.dropdown-btn').forEach(function(btn){
+    btn.addEventListener('click', function(e){
+        e.preventDefault();
+        this.nextElementSibling.classList.toggle('show');
+    });
+});
+window.addEventListener('click', function(e){
+    if(!e.target.matches('.dropdown-btn')){
+        document.querySelectorAll('.dropdown-content.show').forEach(function(dc){
+            dc.classList.remove('show');
+        });
+    }
+});
+</script>
+
+
+<!-- ===== AYUDANTE NUBI ===== -->
+<style>
+    #nubi-btn {
+        position: fixed;
+        bottom: 28px;
+        right: 28px;
+        width: 72px;
+        height: 72px;
+        border-radius: 50%;
+        background: rgba(0, 25, 50, 0.85);
+        border: 2px solid #00d9ff;
+        box-shadow: 0 0 25px rgba(0, 217, 255, 0.45);
+        cursor: pointer;
+        z-index: 9999;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: all 0.3s ease;
+        overflow: hidden;
+    }
+
+    #nubi-btn:hover {
+        transform: scale(1.08);
+        box-shadow: 0 0 35px rgba(0, 217, 255, 0.7);
+    }
+
+    #nubi-btn img {
+        width: 58px;
+        height: 58px;
+        object-fit: contain;
+        border-radius: 50%;
+    }
+
+    #nubi-panel {
+        position: fixed;
+        bottom: 115px;
+        right: 28px;
+        width: 340px;
+        max-height: 480px;
+        background: rgba(8, 18, 40, 0.95);
+        backdrop-filter: blur(18px);
+        border: 1px solid rgba(0, 217, 255, 0.25);
+        border-radius: 20px;
+        box-shadow: 0 15px 40px rgba(0, 0, 0, 0.5);
+        z-index: 9998;
+        display: none;
+        flex-direction: column;
+        overflow: hidden;
+        animation: nubiAparecer 0.3s ease;
+    }
+
+    #nubi-panel.abierto {
+        display: flex;
+    }
+
+    @keyframes nubiAparecer {
+        from { opacity: 0; transform: translateY(20px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+
+    .nubi-header {
+        background: linear-gradient(135deg, #00bfff, #0099cc);
+        padding: 14px 18px;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+    }
+
+    .nubi-header img {
+        width: 42px;
+        height: 42px;
+        border-radius: 50%;
+        background: rgba(0,0,0,0.2);
+    }
+
+    .nubi-header div h4 {
+        margin: 0;
+        font-size: 16px;
+        color: white;
+    }
+
+    .nubi-header div p {
+        margin: 0;
+        font-size: 12px;
+        color: rgba(255,255,255,0.85);
+    }
+
+    .nubi-cerrar {
+        margin-left: auto;
+        background: none;
+        border: none;
+        color: white;
+        font-size: 22px;
+        cursor: pointer;
+        line-height: 1;
+    }
+
+    .nubi-mensajes {
+        flex: 1;
+        padding: 16px;
+        overflow-y: auto;
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+    }
+
+    .nubi-msg {
+        max-width: 85%;
+        padding: 12px 15px;
+        border-radius: 16px;
+        font-size: 14px;
+        line-height: 1.5;
+    }
+
+    .nubi-msg.bot {
+        background: rgba(0, 217, 255, 0.12);
+        border: 1px solid rgba(0, 217, 255, 0.2);
+        color: #e0f7ff;
+        align-self: flex-start;
+        border-bottom-left-radius: 4px;
+    }
+
+    .nubi-msg.user {
+        background: rgba(255,255,255,0.1);
+        color: white;
+        align-self: flex-end;
+        border-bottom-right-radius: 4px;
+    }
+
+    .nubi-opciones {
+        padding: 12px 16px 18px;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        border-top: 1px solid rgba(255,255,255,0.08);
+    }
+
+    .nubi-opciones button {
+        background: rgba(0, 217, 255, 0.15);
+        border: 1px solid rgba(0, 217, 255, 0.35);
+        color: #00d9ff;
+        padding: 8px 14px;
+        border-radius: 20px;
+        font-size: 13px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.25s ease;
+    }
+
+    .nubi-opciones button:hover {
+        background: rgba(0, 217, 255, 0.3);
+        transform: translateY(-2px);
+    }
+
+
+    .nubi-mascota{ display:flex; align-items:center; justify-content:center; }
+    .nubi-svg{ width:100%; height:100%; display:block; animation: nubiFloat 3s ease-in-out infinite; }
+    .nubi-ojos{ transform-origin:50% 50%; animation: nubiParpadeo 4.2s ease-in-out infinite; }
+    .nubi-brillo{ animation: nubiBrillo 2.4s ease-in-out infinite; transform-origin:50% 50%; }
+    @keyframes nubiFloat{
+        0%, 100% { transform: translateY(0) rotate(0deg); }
+        50% { transform: translateY(-5px) rotate(-2deg); }
+    }
+    @keyframes nubiParpadeo{
+        0%, 90%, 100% { transform: scaleY(1); }
+        95% { transform: scaleY(0.12); }
+    }
+    @keyframes nubiBrillo{
+        0%, 100% { opacity: 0.35; transform: scale(0.85); }
+        50% { opacity: 1; transform: scale(1.15); }
+    }
+
+    @media (max-width: 480px) {
+        #nubi-panel {
+            width: calc(100% - 32px);
+            right: 16px;
+            bottom: 100px;
+        }
+        #nubi-btn {
+            right: 16px;
+            bottom: 20px;
+        }
+    }
+</style>
+
+<div id="nubi-btn" onclick="toggleNubi()">
+    <div class="nubi-mascota" style="width:58px;height:58px;">
+<svg class="nubi-svg" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<linearGradient id="nubiGradBtn" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0%" stop-color="#ffffff"/>
+<stop offset="100%" stop-color="#bfeaff"/>
+</linearGradient>
+</defs>
+<ellipse cx="50" cy="62" rx="36" ry="24" fill="url(#nubiGradBtn)"/>
+<circle cx="27" cy="46" r="19" fill="url(#nubiGradBtn)"/>
+<circle cx="55" cy="34" r="23" fill="url(#nubiGradBtn)"/>
+<circle cx="77" cy="48" r="17" fill="url(#nubiGradBtn)"/>
+<g class="nubi-ojos">
+<ellipse cx="41" cy="56" rx="4" ry="5.5" fill="#0b3d91"/>
+<ellipse cx="61" cy="56" rx="4" ry="5.5" fill="#0b3d91"/>
+</g>
+<ellipse cx="32" cy="67" rx="6" ry="3" fill="#ffb3c6" opacity="0.75"/>
+<ellipse cx="70" cy="67" rx="6" ry="3" fill="#ffb3c6" opacity="0.75"/>
+<path d="M46 67 Q51 73 57 67" stroke="#0b3d91" stroke-width="2.6" fill="none" stroke-linecap="round"/>
+<g class="nubi-brillo">
+<path d="M83 20 L85 26 L91 28 L85 30 L83 36 L81 30 L75 28 L81 26 Z" fill="#00d9ff"/>
+</g>
+</svg>
+</div>
+</div>
+
+<div id="nubi-panel">
+    <div class="nubi-header">
+        <div class="nubi-mascota" style="width:42px;height:42px;">
+<svg class="nubi-svg" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<linearGradient id="nubiGradHdr" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0%" stop-color="#ffffff"/>
+<stop offset="100%" stop-color="#bfeaff"/>
+</linearGradient>
+</defs>
+<ellipse cx="50" cy="62" rx="36" ry="24" fill="url(#nubiGradHdr)"/>
+<circle cx="27" cy="46" r="19" fill="url(#nubiGradHdr)"/>
+<circle cx="55" cy="34" r="23" fill="url(#nubiGradHdr)"/>
+<circle cx="77" cy="48" r="17" fill="url(#nubiGradHdr)"/>
+<g class="nubi-ojos">
+<ellipse cx="41" cy="56" rx="4" ry="5.5" fill="#0b3d91"/>
+<ellipse cx="61" cy="56" rx="4" ry="5.5" fill="#0b3d91"/>
+</g>
+<ellipse cx="32" cy="67" rx="6" ry="3" fill="#ffb3c6" opacity="0.75"/>
+<ellipse cx="70" cy="67" rx="6" ry="3" fill="#ffb3c6" opacity="0.75"/>
+<path d="M46 67 Q51 73 57 67" stroke="#0b3d91" stroke-width="2.6" fill="none" stroke-linecap="round"/>
+<g class="nubi-brillo">
+<path d="M83 20 L85 26 L91 28 L85 30 L83 36 L81 30 L75 28 L81 26 Z" fill="#00d9ff"/>
+</g>
+</svg>
+</div>
+        <div>
+            <h4>Nubi</h4>
+            <p>Tu ayudante de CloudSpace</p>
+        </div>
+        <button class="nubi-cerrar" onclick="toggleNubi()">×</button>
+    </div>
+
+    <div class="nubi-mensajes" id="nubi-mensajes">
+        <div class="nubi-msg bot">
+            ¡Hola! 👋 Soy <strong>Nubi</strong>, tu ayudante de CloudSpace.<br>
+            ¿En qué te puedo ayudar hoy?
+        </div>
+    </div>
+
+    <div class="nubi-opciones" id="nubi-opciones">
+        <button onclick="nubiRespuesta('planes')">Ver Planes</button>
+        <button onclick="nubiRespuesta('seguridad')">Seguridad</button>
+        <button onclick="nubiRespuesta('espacio')">Almacenamiento</button>
+        <button onclick="nubiRespuesta('comprar')">Cómo comprar</button>
+        <button onclick="nubiRespuesta('velocidad')">Velocidad</button>
+        <button onclick="nubiRespuesta('contacto')">Contacto</button>
+    </div>
+</div>
+
+<script>
+    function toggleNubi() {
+        document.getElementById('nubi-panel').classList.toggle('abierto');
+    }
+
+    function nubiRespuesta(tipo) {
+        const mensajes = document.getElementById('nubi-mensajes');
+
+        let textoUser = {
+            'planes': 'Quiero ver los planes',
+            'seguridad': '¿Qué seguridad tienen?',
+            'espacio': '¿Cuánto espacio ofrecen?',
+            'comprar': '¿Cómo puedo comprar?',
+            'velocidad': '¿Qué tan rápido es?',
+            'contacto': 'Quiero contactarlos'
+        };
+
+        mensajes.innerHTML += `<div class="nubi-msg user">${textoUser[tipo]}</div>`;
+
+        let respuesta = '';
+
+        switch(tipo) {
+            case 'planes':
+                respuesta = `Tenemos varios planes pensados para ti ☁️<br><br>
+                Puedes ver todos los detalles y precios en la sección <strong>Planes</strong>.<br>
+                <a href="planes.html" style="color:#00d9ff; text-decoration:underline;">Ir a Planes →</a>`;
+                break;
+
+            case 'seguridad':
+                respuesta = `🔒 <strong>Seguridad Total</strong><br><br>
+                Todos tus archivos están protegidos con cifrado de última generación y múltiples copias de seguridad automáticas. Tu información está siempre a salvo.`;
+                break;
+
+            case 'espacio':
+                respuesta = `☁ <strong>Hasta 16 TB</strong> de almacenamiento.<br><br>
+                Puedes ampliar tu espacio cuando quieras y guardar miles de fotografías, videos, documentos y proyectos.`;
+                break;
+
+            case 'comprar':
+                respuesta = `Para comprar un plan solo tienes que ir a la sección <strong>Comprar</strong>.<br><br>
+                <a href="compras.html" style="color:#00d9ff; text-decoration:underline;">Ir a Comprar →</a><br><br>
+                El proceso es rápido y seguro.`;
+                break;
+
+            case 'velocidad':
+                respuesta = `⚡ <strong>Máxima Velocidad</strong><br><br>
+                Sube y descarga documentos, videos e imágenes en segundos desde cualquier dispositivo.`;
+                break;
+
+            case 'contacto':
+                respuesta = `Puedes escribirnos o resolvernos tus dudas en la página de <strong>Contacto</strong>.<br><br>
+                <a href="contacto.html" style="color:#00d9ff; text-decoration:underline;">Ir a Contacto →</a>`;
+                break;
+        }
+
+        setTimeout(() => {
+            mensajes.innerHTML += `<div class="nubi-msg bot">${respuesta}</div>`;
+            mensajes.scrollTop = mensajes.scrollHeight;
+        }, 400);
+    }
+</script>
+
+</body>
+</html>

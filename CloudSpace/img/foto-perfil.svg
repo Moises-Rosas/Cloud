@@ -1,0 +1,48 @@
+<svg width="680" height="680" viewBox="0 0 680 680" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<radialGradient id="fondoGrad" cx="50%" cy="38%" r="75%">
+<stop offset="0%" stop-color="#0a2a52"/>
+<stop offset="100%" stop-color="#020a1a"/>
+</radialGradient>
+<linearGradient id="nubeGrad" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0%" stop-color="#ffffff"/>
+<stop offset="100%" stop-color="#bfeaff"/>
+</linearGradient>
+<clipPath id="marco">
+<circle cx="340" cy="340" r="320"/>
+</clipPath>
+</defs>
+<g clip-path="url(#marco)">
+<circle cx="340" cy="340" r="320" fill="url(#fondoGrad)"/>
+<circle cx="120" cy="120" r="2.5" fill="#ffffff" opacity="0.8"/>
+<circle cx="560" cy="90" r="2" fill="#ffffff" opacity="0.6"/>
+<circle cx="600" cy="230" r="1.8" fill="#ffffff" opacity="0.7"/>
+<circle cx="90" cy="300" r="1.6" fill="#ffffff" opacity="0.5"/>
+<circle cx="580" cy="480" r="2.2" fill="#ffffff" opacity="0.6"/>
+<circle cx="140" cy="560" r="1.8" fill="#ffffff" opacity="0.55"/>
+<circle cx="470" cy="600" r="2" fill="#ffffff" opacity="0.5"/>
+<circle cx="250" cy="80" r="1.6" fill="#00d9ff" opacity="0.7"/>
+<path d="M60 340 L200 340 M200 340 L220 320 M200 340 L220 360" stroke="#00d9ff" stroke-width="2" opacity="0.35" fill="none" stroke-linecap="round"/>
+<path d="M480 240 L610 240 M480 240 L460 220 M480 240 L460 260" stroke="#00d9ff" stroke-width="2" opacity="0.3" fill="none" stroke-linecap="round"/>
+<circle cx="340" cy="340" r="230" fill="none" stroke="#00d9ff" stroke-width="1" opacity="0.18"/>
+<circle cx="340" cy="340" r="185" fill="none" stroke="#00d9ff" stroke-width="1" opacity="0.14"/>
+<g>
+<ellipse cx="340" cy="410" rx="145" ry="95" fill="url(#nubeGrad)"/>
+<circle cx="245" cy="365" r="78" fill="url(#nubeGrad)"/>
+<circle cx="360" cy="330" r="98" fill="url(#nubeGrad)"/>
+<circle cx="450" cy="360" r="72" fill="url(#nubeGrad)"/>
+<g>
+<ellipse cx="300" cy="380" rx="16" ry="21" fill="#0b3d91"/>
+<ellipse cx="395" cy="380" rx="16" ry="21" fill="#0b3d91"/>
+</g>
+<ellipse cx="255" cy="425" rx="22" ry="11" fill="#ffb3c6" opacity="0.75"/>
+<ellipse cx="440" cy="425" rx="22" ry="11" fill="#ffb3c6" opacity="0.75"/>
+<path d="M290 428 Q347 465 405 428" stroke="#0b3d91" stroke-width="9" fill="none" stroke-linecap="round"/>
+</g>
+<path d="M560 130 L568 152 L590 160 L568 168 L560 190 L552 168 L530 160 L552 152 Z" fill="#00d9ff"/>
+<path d="M130 470 L136 486 L152 492 L136 498 L130 514 L124 498 L108 492 L124 486 Z" fill="#00d9ff" opacity="0.85"/>
+<circle cx="500" cy="540" r="6" fill="#00d9ff" opacity="0.7"/>
+<circle cx="180" cy="180" r="4" fill="#00d9ff" opacity="0.6"/>
+</g>
+<circle cx="340" cy="340" r="316" fill="none" stroke="#00d9ff" stroke-width="6" opacity="0.55"/>
+</svg>

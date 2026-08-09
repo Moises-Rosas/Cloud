@@ -1,0 +1,683 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Contacto | CloudSpace</title>
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial, Helvetica, sans-serif;
+}
+
+body{
+    background:#eef4ff;
+}
+
+header{
+    background:#0b3d91;
+    color:white;
+    padding:20px;
+}
+
+header h1{
+    display:inline-block;
+}
+
+nav{
+    float:right;
+    margin-top:8px;
+}
+
+nav a{
+    color:white;
+    text-decoration:none;
+    margin-left:20px;
+    font-weight:bold;
+}
+
+nav a:hover,
+nav a.activo{
+    color:gold;
+}
+
+.dropdown-menu{
+    position:relative;
+    display:inline-block;
+    margin-left:20px;
+}
+.dropdown-btn{
+    color:white;
+    text-decoration:none;
+    font-weight:bold;
+    cursor:pointer;
+}
+.dropdown-btn:hover{ color:gold; }
+.dropdown-content{
+    display:none;
+    position:absolute;
+    top:100%;
+    right:0;
+    background:#0b3d91;
+    border-radius:10px;
+    min-width:190px;
+    box-shadow:0 12px 30px rgba(0,0,0,.3);
+    z-index:1000;
+    padding:8px 0;
+    margin-top:10px;
+}
+.dropdown-content.show{ display:block; }
+.dropdown-titulo{
+    padding:8px 16px;
+    font-size:11px;
+    font-weight:700;
+    color:rgba(255,255,255,.55);
+    text-transform:uppercase;
+    letter-spacing:.5px;
+}
+.dropdown-content a{
+    display:block;
+    padding:9px 16px;
+    margin-left:0;
+    color:rgba(255,255,255,.9);
+    text-decoration:none;
+    font-size:13.5px;
+    font-weight:500;
+}
+.dropdown-content a:hover{ background:rgba(255,255,255,.1); color:gold; }
+
+/* ===================================================
+   TEMA OSCURO — a juego con el fondo de index.html
+   =================================================== */
+body{
+    background:
+        linear-gradient(to bottom, rgba(0,40,95,.85), rgba(225,240,255,.10), rgba(0,10,25,.93)),
+        radial-gradient(circle at 15% -10%, rgba(0,217,255,.18), transparent 45%),
+        radial-gradient(circle at 85% 110%, rgba(0,191,255,.12), transparent 50%),
+        #02070f !important;
+    background-attachment:fixed;
+}
+
+header{
+    background:rgba(10,20,45,.55) !important;
+    backdrop-filter:blur(18px);
+    -webkit-backdrop-filter:blur(18px);
+    border-bottom:1px solid rgba(255,255,255,.08);
+}
+
+nav a:hover,
+nav a.activo{
+    color:#00d9ff !important;
+}
+
+.dropdown-btn:hover{ color:#00d9ff !important; }
+.dropdown-content{ background:rgba(8,18,40,.96) !important; border:1px solid rgba(0,217,255,.2); }
+.dropdown-content a:hover{ color:#00d9ff !important; }
+
+.formulario, .info{
+    background:rgba(255,255,255,.06) !important;
+    border:1px solid rgba(255,255,255,.14);
+    color:#eaf6ff;
+    box-shadow:0 20px 45px rgba(0,0,0,.35) !important;
+}
+
+.formulario h2{ color:#00d9ff !important; }
+.formulario p{ color:rgba(234,246,255,.65) !important; }
+label{ color:#eaf6ff !important; }
+
+input, textarea{
+    background:rgba(255,255,255,.06) !important;
+    color:#eaf6ff !important;
+    border:1px solid rgba(255,255,255,.18) !important;
+}
+input::placeholder, textarea::placeholder{ color:rgba(234,246,255,.35); }
+
+button{
+    background:linear-gradient(135deg,#00bfff,#0099cc) !important;
+}
+button:hover{
+    background:linear-gradient(135deg,#00d9ff,#0099cc) !important;
+}
+
+.info h3{ color:#00d9ff !important; }
+.info p{ color:rgba(234,246,255,.8) !important; }
+
+footer{
+    background:rgba(10,20,45,.55) !important;
+    backdrop-filter:blur(18px);
+    -webkit-backdrop-filter:blur(18px);
+    border-top:1px solid rgba(255,255,255,.06);
+}
+
+.contenedor{
+    width:90%;
+    max-width:700px;
+    margin:40px auto;
+}
+
+.formulario{
+    background:white;
+    padding:30px;
+    border-radius:15px;
+    box-shadow:0 0 15px rgba(0,0,0,.2);
+}
+
+.formulario h2{
+    text-align:center;
+    color:#0b3d91;
+    margin-bottom:20px;
+}
+
+.formulario p{
+    text-align:center;
+    color:#555;
+    margin-bottom:30px;
+}
+
+label{
+    display:block;
+    margin-top:15px;
+    font-weight:bold;
+}
+
+input,
+textarea{
+    width:100%;
+    padding:12px;
+    margin-top:5px;
+    border:1px solid #ccc;
+    border-radius:8px;
+    font-size:16px;
+}
+
+textarea{
+    resize:none;
+}
+
+button{
+    width:100%;
+    margin-top:25px;
+    padding:15px;
+    background:#0b3d91;
+    color:white;
+    border:none;
+    border-radius:10px;
+    font-size:18px;
+    cursor:pointer;
+}
+
+button:hover{
+    background:#28a745;
+}
+
+.info{
+    margin-top:30px;
+    background:#ffffff;
+    padding:20px;
+    border-radius:15px;
+    box-shadow:0 0 10px rgba(0,0,0,.2);
+}
+
+.info h3{
+    color:#0b3d91;
+    margin-bottom:15px;
+}
+
+.info p{
+    margin:8px 0;
+}
+
+footer{
+    background:#0b3d91;
+    color:white;
+    text-align:center;
+    padding:20px;
+    margin-top:50px;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<header>
+
+<h1>☁ CloudSpace</h1>
+
+<nav>
+
+<a href="../index.html">Inicio</a>
+<a href="planes.html">Planes</a>
+<a href="compras.html">Comprar</a>
+<a href="perfil.html">Perfil</a>
+<a href="contacto.html" class="activo">Contacto</a>
+<a href="personal.html">Personales</a>
+<div class="dropdown-menu">
+<a href="#" class="dropdown-btn">Categoría ▾</a>
+<div class="dropdown-content">
+<div class="dropdown-titulo">Otras categorías</div>
+<a href="Evidencia.html">Evidencia</a>
+<a href="Portafolio.html">Portafolio</a>
+<a href="Yutube.html">Yutube</a>
+<a href="Juegos.html">Juegos</a>
+</div>
+</div>
+
+</nav>
+
+<div style="clear:both;"></div>
+
+</header>
+
+<div class="contenedor">
+
+<div class="formulario">
+
+<h2>Contáctanos</h2>
+
+<p>¿Tienes alguna duda? Envíanos un mensaje.</p>
+
+<form onsubmit="return enviarMensaje()">
+
+<label>Nombre Completo</label>
+<input type="text" id="nombre" required>
+
+<label>Correo Electrónico</label>
+<input type="email" id="correo" required>
+
+<label>Asunto</label>
+<input type="text" id="asunto" required>
+
+<label>Mensaje</label>
+<textarea id="mensaje" rows="6" required></textarea>
+
+<button type="submit">Enviar Mensaje</button>
+
+</form>
+
+</div>
+
+<div class="info">
+
+<h3>Información de Contacto</h3>
+
+<p>📍 Dirección: Ciudad de Panamá, Panamá</p>
+
+<p>📞 Teléfono: +507 6397-1028</p>
+
+<p>📧 Correo: soporte@cloudspace.com</p>
+
+<p>🕒 Horario: Lunes a Viernes de 8:00 a.m. a 5:00 p.m.</p>
+
+</div>
+
+</div>
+
+<footer>
+
+<h3>CloudSpace © 2026</h3>
+
+<p>Siempre listos para ayudarte.</p>
+
+</footer>
+
+<script>
+
+function enviarMensaje(){
+
+let nombre=document.getElementById("nombre").value;
+
+alert("Gracias, " + nombre + ".\n\nTu mensaje fue enviado correctamente.\nNuestro equipo te responderá pronto.");
+
+return false;
+
+}
+
+document.querySelectorAll('.dropdown-btn').forEach(function(btn){
+    btn.addEventListener('click', function(e){
+        e.preventDefault();
+        this.nextElementSibling.classList.toggle('show');
+    });
+});
+window.addEventListener('click', function(e){
+    if(!e.target.matches('.dropdown-btn')){
+        document.querySelectorAll('.dropdown-content.show').forEach(function(dc){
+            dc.classList.remove('show');
+        });
+    }
+});
+
+</script>
+
+
+<!-- ===== AYUDANTE NUBI ===== -->
+<style>
+    #nubi-btn {
+        position: fixed;
+        bottom: 28px;
+        right: 28px;
+        width: 72px;
+        height: 72px;
+        border-radius: 50%;
+        background: rgba(0, 25, 50, 0.85);
+        border: 2px solid #00d9ff;
+        box-shadow: 0 0 25px rgba(0, 217, 255, 0.45);
+        cursor: pointer;
+        z-index: 9999;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: all 0.3s ease;
+        overflow: hidden;
+    }
+
+    #nubi-btn:hover {
+        transform: scale(1.08);
+        box-shadow: 0 0 35px rgba(0, 217, 255, 0.7);
+    }
+
+    #nubi-btn img {
+        width: 58px;
+        height: 58px;
+        object-fit: contain;
+        border-radius: 50%;
+    }
+
+    #nubi-panel {
+        position: fixed;
+        bottom: 115px;
+        right: 28px;
+        width: 340px;
+        max-height: 480px;
+        background: rgba(8, 18, 40, 0.95);
+        backdrop-filter: blur(18px);
+        border: 1px solid rgba(0, 217, 255, 0.25);
+        border-radius: 20px;
+        box-shadow: 0 15px 40px rgba(0, 0, 0, 0.5);
+        z-index: 9998;
+        display: none;
+        flex-direction: column;
+        overflow: hidden;
+        animation: nubiAparecer 0.3s ease;
+    }
+
+    #nubi-panel.abierto {
+        display: flex;
+    }
+
+    @keyframes nubiAparecer {
+        from { opacity: 0; transform: translateY(20px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+
+    .nubi-header {
+        background: linear-gradient(135deg, #00bfff, #0099cc);
+        padding: 14px 18px;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+    }
+
+    .nubi-header img {
+        width: 42px;
+        height: 42px;
+        border-radius: 50%;
+        background: rgba(0,0,0,0.2);
+    }
+
+    .nubi-header div h4 {
+        margin: 0;
+        font-size: 16px;
+        color: white;
+    }
+
+    .nubi-header div p {
+        margin: 0;
+        font-size: 12px;
+        color: rgba(255,255,255,0.85);
+    }
+
+    .nubi-cerrar {
+        margin-left: auto;
+        background: none;
+        border: none;
+        color: white;
+        font-size: 22px;
+        cursor: pointer;
+        line-height: 1;
+    }
+
+    .nubi-mensajes {
+        flex: 1;
+        padding: 16px;
+        overflow-y: auto;
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+    }
+
+    .nubi-msg {
+        max-width: 85%;
+        padding: 12px 15px;
+        border-radius: 16px;
+        font-size: 14px;
+        line-height: 1.5;
+    }
+
+    .nubi-msg.bot {
+        background: rgba(0, 217, 255, 0.12);
+        border: 1px solid rgba(0, 217, 255, 0.2);
+        color: #e0f7ff;
+        align-self: flex-start;
+        border-bottom-left-radius: 4px;
+    }
+
+    .nubi-msg.user {
+        background: rgba(255,255,255,0.1);
+        color: white;
+        align-self: flex-end;
+        border-bottom-right-radius: 4px;
+    }
+
+    .nubi-opciones {
+        padding: 12px 16px 18px;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        border-top: 1px solid rgba(255,255,255,0.08);
+    }
+
+    .nubi-opciones button {
+        background: rgba(0, 217, 255, 0.15);
+        border: 1px solid rgba(0, 217, 255, 0.35);
+        color: #00d9ff;
+        padding: 8px 14px;
+        border-radius: 20px;
+        font-size: 13px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.25s ease;
+    }
+
+    .nubi-opciones button:hover {
+        background: rgba(0, 217, 255, 0.3);
+        transform: translateY(-2px);
+    }
+
+
+    .nubi-mascota{ display:flex; align-items:center; justify-content:center; }
+    .nubi-svg{ width:100%; height:100%; display:block; animation: nubiFloat 3s ease-in-out infinite; }
+    .nubi-ojos{ transform-origin:50% 50%; animation: nubiParpadeo 4.2s ease-in-out infinite; }
+    .nubi-brillo{ animation: nubiBrillo 2.4s ease-in-out infinite; transform-origin:50% 50%; }
+    @keyframes nubiFloat{
+        0%, 100% { transform: translateY(0) rotate(0deg); }
+        50% { transform: translateY(-5px) rotate(-2deg); }
+    }
+    @keyframes nubiParpadeo{
+        0%, 90%, 100% { transform: scaleY(1); }
+        95% { transform: scaleY(0.12); }
+    }
+    @keyframes nubiBrillo{
+        0%, 100% { opacity: 0.35; transform: scale(0.85); }
+        50% { opacity: 1; transform: scale(1.15); }
+    }
+
+    @media (max-width: 480px) {
+        #nubi-panel {
+            width: calc(100% - 32px);
+            right: 16px;
+            bottom: 100px;
+        }
+        #nubi-btn {
+            right: 16px;
+            bottom: 20px;
+        }
+    }
+</style>
+
+<div id="nubi-btn" onclick="toggleNubi()">
+    <div class="nubi-mascota" style="width:58px;height:58px;">
+<svg class="nubi-svg" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<linearGradient id="nubiGradBtn" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0%" stop-color="#ffffff"/>
+<stop offset="100%" stop-color="#bfeaff"/>
+</linearGradient>
+</defs>
+<ellipse cx="50" cy="62" rx="36" ry="24" fill="url(#nubiGradBtn)"/>
+<circle cx="27" cy="46" r="19" fill="url(#nubiGradBtn)"/>
+<circle cx="55" cy="34" r="23" fill="url(#nubiGradBtn)"/>
+<circle cx="77" cy="48" r="17" fill="url(#nubiGradBtn)"/>
+<g class="nubi-ojos">
+<ellipse cx="41" cy="56" rx="4" ry="5.5" fill="#0b3d91"/>
+<ellipse cx="61" cy="56" rx="4" ry="5.5" fill="#0b3d91"/>
+</g>
+<ellipse cx="32" cy="67" rx="6" ry="3" fill="#ffb3c6" opacity="0.75"/>
+<ellipse cx="70" cy="67" rx="6" ry="3" fill="#ffb3c6" opacity="0.75"/>
+<path d="M46 67 Q51 73 57 67" stroke="#0b3d91" stroke-width="2.6" fill="none" stroke-linecap="round"/>
+<g class="nubi-brillo">
+<path d="M83 20 L85 26 L91 28 L85 30 L83 36 L81 30 L75 28 L81 26 Z" fill="#00d9ff"/>
+</g>
+</svg>
+</div>
+</div>
+
+<div id="nubi-panel">
+    <div class="nubi-header">
+        <div class="nubi-mascota" style="width:42px;height:42px;">
+<svg class="nubi-svg" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<linearGradient id="nubiGradHdr" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0%" stop-color="#ffffff"/>
+<stop offset="100%" stop-color="#bfeaff"/>
+</linearGradient>
+</defs>
+<ellipse cx="50" cy="62" rx="36" ry="24" fill="url(#nubiGradHdr)"/>
+<circle cx="27" cy="46" r="19" fill="url(#nubiGradHdr)"/>
+<circle cx="55" cy="34" r="23" fill="url(#nubiGradHdr)"/>
+<circle cx="77" cy="48" r="17" fill="url(#nubiGradHdr)"/>
+<g class="nubi-ojos">
+<ellipse cx="41" cy="56" rx="4" ry="5.5" fill="#0b3d91"/>
+<ellipse cx="61" cy="56" rx="4" ry="5.5" fill="#0b3d91"/>
+</g>
+<ellipse cx="32" cy="67" rx="6" ry="3" fill="#ffb3c6" opacity="0.75"/>
+<ellipse cx="70" cy="67" rx="6" ry="3" fill="#ffb3c6" opacity="0.75"/>
+<path d="M46 67 Q51 73 57 67" stroke="#0b3d91" stroke-width="2.6" fill="none" stroke-linecap="round"/>
+<g class="nubi-brillo">
+<path d="M83 20 L85 26 L91 28 L85 30 L83 36 L81 30 L75 28 L81 26 Z" fill="#00d9ff"/>
+</g>
+</svg>
+</div>
+        <div>
+            <h4>Nubi</h4>
+            <p>Tu ayudante de CloudSpace</p>
+        </div>
+        <button class="nubi-cerrar" onclick="toggleNubi()">×</button>
+    </div>
+
+    <div class="nubi-mensajes" id="nubi-mensajes">
+        <div class="nubi-msg bot">
+            ¡Hola! 👋 Soy <strong>Nubi</strong>, tu ayudante de CloudSpace.<br>
+            ¿En qué te puedo ayudar hoy?
+        </div>
+    </div>
+
+    <div class="nubi-opciones" id="nubi-opciones">
+        <button onclick="nubiRespuesta('planes')">Ver Planes</button>
+        <button onclick="nubiRespuesta('seguridad')">Seguridad</button>
+        <button onclick="nubiRespuesta('espacio')">Almacenamiento</button>
+        <button onclick="nubiRespuesta('comprar')">Cómo comprar</button>
+        <button onclick="nubiRespuesta('velocidad')">Velocidad</button>
+        <button onclick="nubiRespuesta('contacto')">Contacto</button>
+    </div>
+</div>
+
+<script>
+    function toggleNubi() {
+        document.getElementById('nubi-panel').classList.toggle('abierto');
+    }
+
+    function nubiRespuesta(tipo) {
+        const mensajes = document.getElementById('nubi-mensajes');
+
+        let textoUser = {
+            'planes': 'Quiero ver los planes',
+            'seguridad': '¿Qué seguridad tienen?',
+            'espacio': '¿Cuánto espacio ofrecen?',
+            'comprar': '¿Cómo puedo comprar?',
+            'velocidad': '¿Qué tan rápido es?',
+            'contacto': 'Quiero contactarlos'
+        };
+
+        mensajes.innerHTML += `<div class="nubi-msg user">${textoUser[tipo]}</div>`;
+
+        let respuesta = '';
+
+        switch(tipo) {
+            case 'planes':
+                respuesta = `Tenemos varios planes pensados para ti ☁️<br><br>
+                Puedes ver todos los detalles y precios en la sección <strong>Planes</strong>.<br>
+                <a href="planes.html" style="color:#00d9ff; text-decoration:underline;">Ir a Planes →</a>`;
+                break;
+
+            case 'seguridad':
+                respuesta = `🔒 <strong>Seguridad Total</strong><br><br>
+                Todos tus archivos están protegidos con cifrado de última generación y múltiples copias de seguridad automáticas. Tu información está siempre a salvo.`;
+                break;
+
+            case 'espacio':
+                respuesta = `☁ <strong>Hasta 16 TB</strong> de almacenamiento.<br><br>
+                Puedes ampliar tu espacio cuando quieras y guardar miles de fotografías, videos, documentos y proyectos.`;
+                break;
+
+            case 'comprar':
+                respuesta = `Para comprar un plan solo tienes que ir a la sección <strong>Comprar</strong>.<br><br>
+                <a href="compras.html" style="color:#00d9ff; text-decoration:underline;">Ir a Comprar →</a><br><br>
+                El proceso es rápido y seguro.`;
+                break;
+
+            case 'velocidad':
+                respuesta = `⚡ <strong>Máxima Velocidad</strong><br><br>
+                Sube y descarga documentos, videos e imágenes en segundos desde cualquier dispositivo.`;
+                break;
+
+            case 'contacto':
+                respuesta = `Puedes escribirnos o resolvernos tus dudas en la página de <strong>Contacto</strong>.<br><br>
+                <a href="contacto.html" style="color:#00d9ff; text-decoration:underline;">Ir a Contacto →</a>`;
+                break;
+        }
+
+        setTimeout(() => {
+            mensajes.innerHTML += `<div class="nubi-msg bot">${respuesta}</div>`;
+            mensajes.scrollTop = mensajes.scrollHeight;
+        }, 400);
+    }
+</script>
+
+</body>
+</html>

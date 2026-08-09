@@ -1,0 +1,942 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mi Perfil | CloudSpace</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tabler-icons/2.44.0/iconfont/tabler-icons.min.css">
+<style>
+
+:root{
+    --navy:#0b3d91;
+    --navy-dark:#082a66;
+    --navy-soft:#eaf0fc;
+    --green:#1f9d55;
+    --green-soft:#e5f7ec;
+    --amber:#c98a12;
+    --amber-soft:#fbf1de;
+    --ink:#1c2430;
+    --ink-soft:#5b6674;
+    --line:#e4e8f0;
+    --bg:#f4f6fb;
+    --card:#ffffff;
+}
+
+*{ margin:0; padding:0; box-sizing:border-box; }
+
+body{
+    font-family:'Inter', Arial, sans-serif;
+    background:var(--bg);
+    color:var(--ink);
+}
+
+/* ---------- HEADER ---------- */
+header{
+    background:var(--navy);
+    color:white;
+    padding:16px 32px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+}
+
+.logo{
+    display:flex; align-items:center; gap:10px;
+    font-weight:700; font-size:19px; letter-spacing:.2px;
+}
+.logo i{ font-size:22px; }
+
+nav{ display:flex; align-items:center; gap:4px; }
+
+nav a{
+    color:rgba(255,255,255,.78);
+    text-decoration:none;
+    font-weight:500;
+    font-size:14px;
+    padding:8px 14px;
+    border-radius:8px;
+    transition:background .15s ease, color .15s ease;
+}
+
+nav a:hover{ background:rgba(255,255,255,.1); color:white; }
+nav a.activo{ background:rgba(255,255,255,.16); color:white; }
+
+.dropdown-menu{ position:relative; display:inline-block; }
+.dropdown-btn{
+    color:rgba(255,255,255,.78);
+    text-decoration:none;
+    font-weight:500;
+    font-size:14px;
+    padding:8px 14px;
+    border-radius:8px;
+    cursor:pointer;
+    transition:background .15s ease, color .15s ease;
+}
+.dropdown-btn:hover{ background:rgba(255,255,255,.1); color:white; }
+.dropdown-content{
+    display:none;
+    position:absolute;
+    top:100%;
+    left:0;
+    background:var(--navy);
+    border-radius:10px;
+    min-width:200px;
+    box-shadow:0 12px 30px rgba(0,0,0,.3);
+    z-index:1000;
+    padding:8px 0;
+    margin-top:8px;
+}
+.dropdown-content.show{ display:block; }
+.dropdown-titulo{
+    padding:8px 16px;
+    font-size:11px;
+    font-weight:700;
+    color:rgba(255,255,255,.55);
+    text-transform:uppercase;
+    letter-spacing:.5px;
+}
+.dropdown-content a{
+    display:block;
+    padding:9px 16px;
+    color:rgba(255,255,255,.85);
+    text-decoration:none;
+    font-size:13.5px;
+    font-weight:500;
+}
+.dropdown-content a:hover{ background:rgba(255,255,255,.1); color:white; }
+
+
+/* ---------- LAYOUT ---------- */
+.contenedor{
+    max-width:1040px;
+    margin:40px auto;
+    padding:0 24px;
+    display:grid;
+    grid-template-columns:1fr 320px;
+    gap:24px;
+}
+
+@media (max-width:820px){
+    .contenedor{ grid-template-columns:1fr; }
+}
+
+.card{
+    background:var(--card);
+    border:1px solid var(--line);
+    border-radius:16px;
+    padding:28px;
+}
+
+/* ---------- PERFIL PRINCIPAL ---------- */
+.perfil-top{
+    display:flex;
+    align-items:center;
+    gap:20px;
+    padding-bottom:24px;
+    border-bottom:1px solid var(--line);
+    margin-bottom:24px;
+}
+
+.avatar-wrap{ position:relative; flex-shrink:0; }
+
+.avatar-wrap img{
+    width:88px; height:88px; border-radius:50%;
+    object-fit:cover;
+    border:3px solid var(--navy-soft);
+}
+
+.avatar-edit{
+    position:absolute; bottom:0; right:0;
+    width:28px; height:28px; border-radius:50%;
+    background:var(--navy); color:white;
+    display:flex; align-items:center; justify-content:center;
+    font-size:13px; border:2px solid white; cursor:pointer;
+}
+
+.perfil-top h2{ font-size:22px; font-weight:700; }
+
+.badge-estado{
+    display:inline-flex; align-items:center; gap:6px;
+    background:var(--green-soft); color:var(--green);
+    font-size:12.5px; font-weight:600;
+    padding:4px 10px; border-radius:100px;
+    margin-top:6px;
+}
+.badge-estado .punto{ width:6px; height:6px; border-radius:50%; background:var(--green); }
+
+/* ---------- CAMPOS ---------- */
+.seccion-titulo{
+    font-size:12.5px; font-weight:600; letter-spacing:.6px; text-transform:uppercase;
+    color:var(--ink-soft); margin-bottom:14px;
+}
+
+.campo{
+    display:grid;
+    grid-template-columns:150px 1fr;
+    align-items:center;
+    padding:13px 0;
+    border-bottom:1px solid var(--line);
+    gap:12px;
+}
+.campo:last-of-type{ border-bottom:none; }
+
+.campo label{
+    font-size:13px; color:var(--ink-soft); font-weight:500;
+    display:flex; align-items:center; gap:7px;
+}
+.campo label i{ font-size:15px; }
+
+.campo .valor{ font-size:14.5px; font-weight:500; }
+
+.campo input{
+    font-family:inherit; font-size:14.5px;
+    padding:9px 12px;
+    border:1.5px solid var(--line);
+    border-radius:8px;
+    width:100%;
+    max-width:320px;
+    outline:none;
+    transition:border-color .15s ease;
+}
+.campo input:focus{ border-color:var(--navy); }
+
+/* ---------- BOTONES ---------- */
+.acciones{ margin-top:26px; display:flex; gap:10px; }
+
+button{
+    font-family:inherit;
+    font-size:14px;
+    font-weight:600;
+    padding:11px 20px;
+    border-radius:9px;
+    border:none;
+    cursor:pointer;
+    display:inline-flex; align-items:center; gap:7px;
+    transition:opacity .15s ease, background .15s ease;
+}
+
+.btn-primario{ background:var(--navy); color:white; }
+.btn-primario:hover{ background:var(--navy-dark); }
+
+.btn-secundario{ background:var(--navy-soft); color:var(--navy); }
+.btn-secundario:hover{ background:#dde6fa; }
+
+.btn-texto{ background:transparent; color:var(--ink-soft); padding:11px 8px; }
+.btn-texto:hover{ color:#b3261e; }
+
+.oculto{ display:none !important; }
+
+.aviso-guardado{
+    display:none;
+    align-items:center; gap:8px;
+    margin-top:16px;
+    background:var(--green-soft); color:var(--green);
+    font-size:13.5px; font-weight:600;
+    padding:10px 14px; border-radius:9px;
+}
+
+/* ---------- SIDEBAR ---------- */
+.sidebar .card + .card{ margin-top:20px; }
+
+.plan-header{ display:flex; justify-content:space-between; align-items:center; margin-bottom:16px; }
+.plan-nombre{ font-size:16px; font-weight:700; }
+.plan-tag{
+    background:var(--amber-soft); color:var(--amber);
+    font-size:11.5px; font-weight:700; letter-spacing:.3px;
+    padding:3px 9px; border-radius:100px;
+}
+
+.uso-linea{
+    display:flex; justify-content:space-between;
+    font-size:13px; color:var(--ink-soft); margin-bottom:8px;
+}
+
+.barra{
+    width:100%; height:9px; background:var(--navy-soft);
+    border-radius:20px; overflow:hidden; margin-bottom:18px;
+}
+.progreso{ width:65%; height:100%; background:var(--navy); border-radius:20px; }
+
+.linea-info{
+    display:flex; justify-content:space-between; align-items:center;
+    padding:10px 0; border-top:1px solid var(--line);
+    font-size:13.5px;
+}
+.linea-info span:first-child{ color:var(--ink-soft); display:flex; align-items:center; gap:7px; }
+.linea-info span:last-child{ font-weight:600; }
+
+.btn-plan{ width:100%; margin-top:16px; justify-content:center; }
+
+footer{
+    text-align:center;
+    color:var(--ink-soft);
+    font-size:13px;
+    padding:32px 0 40px;
+}
+
+
+/* ===================================================
+   TEMA OSCURO — a juego con el fondo de index.html
+   =================================================== */
+:root{
+    --navy:#00d9ff;
+    --navy-dark:#00bfff;
+    --navy-soft:rgba(0,217,255,.14);
+    --green:#2ee6a6;
+    --green-soft:rgba(46,230,166,.14);
+    --amber:#ffc65c;
+    --amber-soft:rgba(255,198,92,.14);
+    --ink:#eaf6ff;
+    --ink-soft:rgba(234,246,255,.62);
+    --line:rgba(255,255,255,.14);
+    --bg:#04101f;
+    --card:rgba(255,255,255,.06);
+}
+
+body{
+    background:
+        linear-gradient(to bottom, rgba(0,40,95,.85), rgba(225,240,255,.10), rgba(0,10,25,.93)),
+        radial-gradient(circle at 15% -10%, rgba(0,217,255,.18), transparent 45%),
+        radial-gradient(circle at 85% 110%, rgba(0,191,255,.12), transparent 50%),
+        #02070f !important;
+    background-attachment:fixed;
+}
+
+header{
+    background:rgba(10,20,45,.55) !important;
+    backdrop-filter:blur(18px);
+    -webkit-backdrop-filter:blur(18px);
+    border-bottom:1px solid rgba(255,255,255,.08);
+}
+
+footer{
+    background:rgba(10,20,45,.55) !important;
+    backdrop-filter:blur(18px);
+    -webkit-backdrop-filter:blur(18px);
+    border-top:1px solid rgba(255,255,255,.06);
+}
+
+.dropdown-content{
+    background:rgba(8,18,40,.96) !important;
+    border:1px solid rgba(0,217,255,.2);
+}
+
+input, textarea, select{
+    background:rgba(255,255,255,.06) !important;
+    color:#eaf6ff !important;
+    border-color:rgba(255,255,255,.18) !important;
+}
+input::placeholder, textarea::placeholder{ color:rgba(234,246,255,.35); }
+
+.btn-primario, .btn-plan, .plan .boton, .boton{
+    background:linear-gradient(135deg,#00bfff,#0099cc) !important;
+    color:white !important;
+    border-color:transparent !important;
+}
+.plan.destacado .boton:hover, .boton:hover{
+    background:linear-gradient(135deg,#00d9ff,#0099cc) !important;
+    color:white !important;
+}
+.btn-secundario{
+    background:rgba(0,217,255,.12) !important;
+    color:#00d9ff !important;
+}
+.btn-texto{ color:rgba(234,246,255,.6) !important; }
+
+.card, .plan, .persona, .hub-card, .formulario, .info{
+    box-shadow:0 20px 45px rgba(0,0,0,.35) !important;
+}
+
+::selection{ background:rgba(0,217,255,.35); }
+
+</style>
+</head>
+
+<body>
+
+<header>
+
+<div class="logo"><i class="ti ti-cloud"></i> CloudSpace</div>
+
+<nav>
+<a href="../index.html">Inicio</a>
+<a href="planes.html">Planes</a>
+<a href="compras.html">Comprar</a>
+<a href="perfil.html" class="activo">Perfil</a>
+<a href="contacto.html">Contacto</a>
+<a href="personal.html">Personales</a>
+<div class="dropdown-menu">
+<a href="#" class="dropdown-btn">Categoría ▾</a>
+<div class="dropdown-content">
+<div class="dropdown-titulo">Otras categorías</div>
+<a href="Evidencia.html">Evidencia</a>
+<a href="Portafolio.html">Portafolio</a>
+<a href="Yutube.html">Yutube</a>
+<a href="Juegos.html">Juegos</a>
+</div>
+</div>
+</nav>
+
+</header>
+
+<div class="contenedor">
+
+<!-- ===== COLUMNA PRINCIPAL: DATOS PERSONALES ===== -->
+<div class="card">
+
+<div class="perfil-top">
+    <div class="avatar-wrap">
+        <img src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png" alt="Foto de usuario">
+        <div class="avatar-edit"><i class="ti ti-camera"></i></div>
+    </div>
+    <div>
+        <h2 id="verNombre">Usuario</h2>
+        <span class="badge-estado"><span class="punto"></span>Cuenta activa</span>
+    </div>
+</div>
+
+<p class="seccion-titulo">Información personal</p>
+
+<!-- MODO VISTA -->
+<div id="modoVista">
+
+    <div class="campo">
+        <label><i class="ti ti-user"></i>Nombre</label>
+        <span class="valor" id="verNombreCampo">Usuario</span>
+    </div>
+
+    <div class="campo">
+        <label><i class="ti ti-mail"></i>Correo</label>
+        <span class="valor" id="verCorreo">usuario@gmail.com</span>
+    </div>
+
+    <div class="campo">
+        <label><i class="ti ti-phone"></i>Teléfono</label>
+        <span class="valor" id="verTelefono">+507 *********</span>
+    </div>
+
+</div>
+
+<!-- MODO EDICIÓN -->
+<div id="modoEdicion" class="oculto">
+
+    <div class="campo">
+        <label><i class="ti ti-user"></i>Nombre</label>
+        <input type="text" id="editNombre">
+    </div>
+
+    <div class="campo">
+        <label><i class="ti ti-mail"></i>Correo</label>
+        <input type="email" id="editCorreo">
+    </div>
+
+    <div class="campo">
+        <label><i class="ti ti-phone"></i>Teléfono</label>
+        <input type="text" id="editTelefono">
+    </div>
+
+</div>
+
+<div class="acciones" id="accionesVista">
+    <button class="btn-primario" onclick="editar()"><i class="ti ti-edit"></i>Editar perfil</button>
+    <button class="btn-texto" onclick="cerrar()"><i class="ti ti-logout"></i>Cerrar sesión</button>
+</div>
+
+<div class="acciones oculto" id="accionesEdicion">
+    <button class="btn-primario" onclick="guardar()"><i class="ti ti-check"></i>Guardar cambios</button>
+    <button class="btn-secundario" onclick="cancelar()">Cancelar</button>
+</div>
+
+<div class="aviso-guardado" id="avisoGuardado"><i class="ti ti-circle-check"></i>Cambios guardados correctamente</div>
+
+</div>
+
+<!-- ===== COLUMNA LATERAL: PLAN Y CUENTA ===== -->
+<div class="sidebar">
+
+<div class="card">
+    <div class="plan-header">
+        <span class="plan-nombre" id="planNombreSidebar">Plan Pro</span>
+        <span class="plan-tag" id="planTagSidebar">2 TB</span>
+    </div>
+
+    <div class="uso-linea">
+        <span>Espacio utilizado</span>
+        <span id="planUsoSidebar">1.3 TB de 2 TB</span>
+    </div>
+    <div class="barra"><div class="progreso" id="planProgresoSidebar"></div></div>
+
+    <div class="linea-info">
+        <span><i class="ti ti-calendar-event"></i>Próximo pago</span>
+        <span id="planPagoSidebar">15 ago 2026</span>
+    </div>
+    <div class="linea-info">
+        <span><i class="ti ti-shield-check"></i>Estado</span>
+        <span style="color:var(--green)">Activo</span>
+    </div>
+
+    <button class="btn-secundario btn-plan" onclick="window.location='planes.html'"><i class="ti ti-arrow-up-circle"></i>Cambiar de plan</button>
+</div>
+
+</div>
+
+</div>
+
+<footer>CloudSpace © 2026 · Tu información está protegida.</footer>
+
+<script>
+
+const CLAVE_PERFIL = "cloudspace_perfil";
+
+function perfilPorDefecto(){
+    return {
+        nombre: "Usuario",
+        correo: "usuario@gmail.com",
+        telefono: "+507 *********",
+        planNombre: "Pro",
+        planTag: "2 TB",
+        planUso: "1.3 TB de 2 TB",
+        planProgreso: 65,
+        planPago: "15 ago 2026"
+    };
+}
+
+function cargarPerfil(){
+    const guardado = localStorage.getItem(CLAVE_PERFIL);
+    return guardado ? JSON.parse(guardado) : perfilPorDefecto();
+}
+
+function guardarEnStorage(perfil){
+    localStorage.setItem(CLAVE_PERFIL, JSON.stringify(perfil));
+}
+
+function pintarPerfil(){
+    const perfil = cargarPerfil();
+
+    document.getElementById('verNombre').textContent = perfil.nombre;
+    document.getElementById('verNombreCampo').textContent = perfil.nombre;
+    document.getElementById('verCorreo').textContent = perfil.correo;
+    document.getElementById('verTelefono').textContent = perfil.telefono;
+
+    document.getElementById('planNombreSidebar').textContent = "Plan " + perfil.planNombre;
+    document.getElementById('planTagSidebar').textContent = perfil.planTag;
+    document.getElementById('planUsoSidebar').textContent = perfil.planUso;
+    document.getElementById('planProgresoSidebar').style.width = perfil.planProgreso + "%";
+    document.getElementById('planPagoSidebar').textContent = perfil.planPago;
+}
+
+function editar(){
+
+    const perfil = cargarPerfil();
+
+    document.getElementById('editNombre').value = perfil.nombre;
+    document.getElementById('editCorreo').value = perfil.correo;
+    document.getElementById('editTelefono').value = perfil.telefono;
+
+    document.getElementById('modoVista').classList.add('oculto');
+    document.getElementById('modoEdicion').classList.remove('oculto');
+
+    document.getElementById('accionesVista').classList.add('oculto');
+    document.getElementById('accionesEdicion').classList.remove('oculto');
+
+    document.getElementById('avisoGuardado').style.display = 'none';
+}
+
+function guardar(){
+
+    var nombre = document.getElementById('editNombre').value.trim();
+    var correo = document.getElementById('editCorreo').value.trim();
+    var telefono = document.getElementById('editTelefono').value.trim();
+
+    if(nombre === ""){
+        alert("El nombre no puede quedar vacío.");
+        return;
+    }
+
+    if(correo === "" || correo.indexOf("@") === -1){
+        alert("Ingresa un correo válido.");
+        return;
+    }
+
+    const perfil = cargarPerfil();
+    perfil.nombre = nombre;
+    perfil.correo = correo;
+    perfil.telefono = telefono;
+    guardarEnStorage(perfil);
+
+    pintarPerfil();
+    volverAVista();
+
+    var aviso = document.getElementById('avisoGuardado');
+    aviso.style.display = 'flex';
+    setTimeout(function(){ aviso.style.display = 'none'; }, 2500);
+}
+
+function cancelar(){
+    volverAVista();
+}
+
+function volverAVista(){
+    document.getElementById('modoVista').classList.remove('oculto');
+    document.getElementById('modoEdicion').classList.add('oculto');
+    document.getElementById('accionesVista').classList.remove('oculto');
+    document.getElementById('accionesEdicion').classList.add('oculto');
+}
+
+function cerrar(){
+    if(confirm("¿Desea cerrar sesión?")){
+        localStorage.removeItem(CLAVE_PERFIL);
+        window.location="../index.html";
+    }
+}
+
+pintarPerfil();
+
+</script>
+
+
+<script>
+document.querySelectorAll('.dropdown-btn').forEach(function(btn){
+    btn.addEventListener('click', function(e){
+        e.preventDefault();
+        this.nextElementSibling.classList.toggle('show');
+    });
+});
+window.addEventListener('click', function(e){
+    if(!e.target.matches('.dropdown-btn')){
+        document.querySelectorAll('.dropdown-content.show').forEach(function(dc){
+            dc.classList.remove('show');
+        });
+    }
+});
+</script>
+
+
+<!-- ===== AYUDANTE NUBI ===== -->
+<style>
+    #nubi-btn {
+        position: fixed;
+        bottom: 28px;
+        right: 28px;
+        width: 72px;
+        height: 72px;
+        border-radius: 50%;
+        background: rgba(0, 25, 50, 0.85);
+        border: 2px solid #00d9ff;
+        box-shadow: 0 0 25px rgba(0, 217, 255, 0.45);
+        cursor: pointer;
+        z-index: 9999;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: all 0.3s ease;
+        overflow: hidden;
+    }
+
+    #nubi-btn:hover {
+        transform: scale(1.08);
+        box-shadow: 0 0 35px rgba(0, 217, 255, 0.7);
+    }
+
+    #nubi-btn img {
+        width: 58px;
+        height: 58px;
+        object-fit: contain;
+        border-radius: 50%;
+    }
+
+    #nubi-panel {
+        position: fixed;
+        bottom: 115px;
+        right: 28px;
+        width: 340px;
+        max-height: 480px;
+        background: rgba(8, 18, 40, 0.95);
+        backdrop-filter: blur(18px);
+        border: 1px solid rgba(0, 217, 255, 0.25);
+        border-radius: 20px;
+        box-shadow: 0 15px 40px rgba(0, 0, 0, 0.5);
+        z-index: 9998;
+        display: none;
+        flex-direction: column;
+        overflow: hidden;
+        animation: nubiAparecer 0.3s ease;
+    }
+
+    #nubi-panel.abierto {
+        display: flex;
+    }
+
+    @keyframes nubiAparecer {
+        from { opacity: 0; transform: translateY(20px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+
+    .nubi-header {
+        background: linear-gradient(135deg, #00bfff, #0099cc);
+        padding: 14px 18px;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+    }
+
+    .nubi-header img {
+        width: 42px;
+        height: 42px;
+        border-radius: 50%;
+        background: rgba(0,0,0,0.2);
+    }
+
+    .nubi-header div h4 {
+        margin: 0;
+        font-size: 16px;
+        color: white;
+    }
+
+    .nubi-header div p {
+        margin: 0;
+        font-size: 12px;
+        color: rgba(255,255,255,0.85);
+    }
+
+    .nubi-cerrar {
+        margin-left: auto;
+        background: none;
+        border: none;
+        color: white;
+        font-size: 22px;
+        cursor: pointer;
+        line-height: 1;
+    }
+
+    .nubi-mensajes {
+        flex: 1;
+        padding: 16px;
+        overflow-y: auto;
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+    }
+
+    .nubi-msg {
+        max-width: 85%;
+        padding: 12px 15px;
+        border-radius: 16px;
+        font-size: 14px;
+        line-height: 1.5;
+    }
+
+    .nubi-msg.bot {
+        background: rgba(0, 217, 255, 0.12);
+        border: 1px solid rgba(0, 217, 255, 0.2);
+        color: #e0f7ff;
+        align-self: flex-start;
+        border-bottom-left-radius: 4px;
+    }
+
+    .nubi-msg.user {
+        background: rgba(255,255,255,0.1);
+        color: white;
+        align-self: flex-end;
+        border-bottom-right-radius: 4px;
+    }
+
+    .nubi-opciones {
+        padding: 12px 16px 18px;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        border-top: 1px solid rgba(255,255,255,0.08);
+    }
+
+    .nubi-opciones button {
+        background: rgba(0, 217, 255, 0.15);
+        border: 1px solid rgba(0, 217, 255, 0.35);
+        color: #00d9ff;
+        padding: 8px 14px;
+        border-radius: 20px;
+        font-size: 13px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.25s ease;
+    }
+
+    .nubi-opciones button:hover {
+        background: rgba(0, 217, 255, 0.3);
+        transform: translateY(-2px);
+    }
+
+
+    .nubi-mascota{ display:flex; align-items:center; justify-content:center; }
+    .nubi-svg{ width:100%; height:100%; display:block; animation: nubiFloat 3s ease-in-out infinite; }
+    .nubi-ojos{ transform-origin:50% 50%; animation: nubiParpadeo 4.2s ease-in-out infinite; }
+    .nubi-brillo{ animation: nubiBrillo 2.4s ease-in-out infinite; transform-origin:50% 50%; }
+    @keyframes nubiFloat{
+        0%, 100% { transform: translateY(0) rotate(0deg); }
+        50% { transform: translateY(-5px) rotate(-2deg); }
+    }
+    @keyframes nubiParpadeo{
+        0%, 90%, 100% { transform: scaleY(1); }
+        95% { transform: scaleY(0.12); }
+    }
+    @keyframes nubiBrillo{
+        0%, 100% { opacity: 0.35; transform: scale(0.85); }
+        50% { opacity: 1; transform: scale(1.15); }
+    }
+
+    @media (max-width: 480px) {
+        #nubi-panel {
+            width: calc(100% - 32px);
+            right: 16px;
+            bottom: 100px;
+        }
+        #nubi-btn {
+            right: 16px;
+            bottom: 20px;
+        }
+    }
+</style>
+
+<div id="nubi-btn" onclick="toggleNubi()">
+    <div class="nubi-mascota" style="width:58px;height:58px;">
+<svg class="nubi-svg" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<linearGradient id="nubiGradBtn" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0%" stop-color="#ffffff"/>
+<stop offset="100%" stop-color="#bfeaff"/>
+</linearGradient>
+</defs>
+<ellipse cx="50" cy="62" rx="36" ry="24" fill="url(#nubiGradBtn)"/>
+<circle cx="27" cy="46" r="19" fill="url(#nubiGradBtn)"/>
+<circle cx="55" cy="34" r="23" fill="url(#nubiGradBtn)"/>
+<circle cx="77" cy="48" r="17" fill="url(#nubiGradBtn)"/>
+<g class="nubi-ojos">
+<ellipse cx="41" cy="56" rx="4" ry="5.5" fill="#0b3d91"/>
+<ellipse cx="61" cy="56" rx="4" ry="5.5" fill="#0b3d91"/>
+</g>
+<ellipse cx="32" cy="67" rx="6" ry="3" fill="#ffb3c6" opacity="0.75"/>
+<ellipse cx="70" cy="67" rx="6" ry="3" fill="#ffb3c6" opacity="0.75"/>
+<path d="M46 67 Q51 73 57 67" stroke="#0b3d91" stroke-width="2.6" fill="none" stroke-linecap="round"/>
+<g class="nubi-brillo">
+<path d="M83 20 L85 26 L91 28 L85 30 L83 36 L81 30 L75 28 L81 26 Z" fill="#00d9ff"/>
+</g>
+</svg>
+</div>
+</div>
+
+<div id="nubi-panel">
+    <div class="nubi-header">
+        <div class="nubi-mascota" style="width:42px;height:42px;">
+<svg class="nubi-svg" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<linearGradient id="nubiGradHdr" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0%" stop-color="#ffffff"/>
+<stop offset="100%" stop-color="#bfeaff"/>
+</linearGradient>
+</defs>
+<ellipse cx="50" cy="62" rx="36" ry="24" fill="url(#nubiGradHdr)"/>
+<circle cx="27" cy="46" r="19" fill="url(#nubiGradHdr)"/>
+<circle cx="55" cy="34" r="23" fill="url(#nubiGradHdr)"/>
+<circle cx="77" cy="48" r="17" fill="url(#nubiGradHdr)"/>
+<g class="nubi-ojos">
+<ellipse cx="41" cy="56" rx="4" ry="5.5" fill="#0b3d91"/>
+<ellipse cx="61" cy="56" rx="4" ry="5.5" fill="#0b3d91"/>
+</g>
+<ellipse cx="32" cy="67" rx="6" ry="3" fill="#ffb3c6" opacity="0.75"/>
+<ellipse cx="70" cy="67" rx="6" ry="3" fill="#ffb3c6" opacity="0.75"/>
+<path d="M46 67 Q51 73 57 67" stroke="#0b3d91" stroke-width="2.6" fill="none" stroke-linecap="round"/>
+<g class="nubi-brillo">
+<path d="M83 20 L85 26 L91 28 L85 30 L83 36 L81 30 L75 28 L81 26 Z" fill="#00d9ff"/>
+</g>
+</svg>
+</div>
+        <div>
+            <h4>Nubi</h4>
+            <p>Tu ayudante de CloudSpace</p>
+        </div>
+        <button class="nubi-cerrar" onclick="toggleNubi()">×</button>
+    </div>
+
+    <div class="nubi-mensajes" id="nubi-mensajes">
+        <div class="nubi-msg bot">
+            ¡Hola! 👋 Soy <strong>Nubi</strong>, tu ayudante de CloudSpace.<br>
+            ¿En qué te puedo ayudar hoy?
+        </div>
+    </div>
+
+    <div class="nubi-opciones" id="nubi-opciones">
+        <button onclick="nubiRespuesta('planes')">Ver Planes</button>
+        <button onclick="nubiRespuesta('seguridad')">Seguridad</button>
+        <button onclick="nubiRespuesta('espacio')">Almacenamiento</button>
+        <button onclick="nubiRespuesta('comprar')">Cómo comprar</button>
+        <button onclick="nubiRespuesta('velocidad')">Velocidad</button>
+        <button onclick="nubiRespuesta('contacto')">Contacto</button>
+    </div>
+</div>
+
+<script>
+    function toggleNubi() {
+        document.getElementById('nubi-panel').classList.toggle('abierto');
+    }
+
+    function nubiRespuesta(tipo) {
+        const mensajes = document.getElementById('nubi-mensajes');
+
+        let textoUser = {
+            'planes': 'Quiero ver los planes',
+            'seguridad': '¿Qué seguridad tienen?',
+            'espacio': '¿Cuánto espacio ofrecen?',
+            'comprar': '¿Cómo puedo comprar?',
+            'velocidad': '¿Qué tan rápido es?',
+            'contacto': 'Quiero contactarlos'
+        };
+
+        mensajes.innerHTML += `<div class="nubi-msg user">${textoUser[tipo]}</div>`;
+
+        let respuesta = '';
+
+        switch(tipo) {
+            case 'planes':
+                respuesta = `Tenemos varios planes pensados para ti ☁️<br><br>
+                Puedes ver todos los detalles y precios en la sección <strong>Planes</strong>.<br>
+                <a href="planes.html" style="color:#00d9ff; text-decoration:underline;">Ir a Planes →</a>`;
+                break;
+
+            case 'seguridad':
+                respuesta = `🔒 <strong>Seguridad Total</strong><br><br>
+                Todos tus archivos están protegidos con cifrado de última generación y múltiples copias de seguridad automáticas. Tu información está siempre a salvo.`;
+                break;
+
+            case 'espacio':
+                respuesta = `☁ <strong>Hasta 16 TB</strong> de almacenamiento.<br><br>
+                Puedes ampliar tu espacio cuando quieras y guardar miles de fotografías, videos, documentos y proyectos.`;
+                break;
+
+            case 'comprar':
+                respuesta = `Para comprar un plan solo tienes que ir a la sección <strong>Comprar</strong>.<br><br>
+                <a href="compras.html" style="color:#00d9ff; text-decoration:underline;">Ir a Comprar →</a><br><br>
+                El proceso es rápido y seguro.`;
+                break;
+
+            case 'velocidad':
+                respuesta = `⚡ <strong>Máxima Velocidad</strong><br><br>
+                Sube y descarga documentos, videos e imágenes en segundos desde cualquier dispositivo.`;
+                break;
+
+            case 'contacto':
+                respuesta = `Puedes escribirnos o resolvernos tus dudas en la página de <strong>Contacto</strong>.<br><br>
+                <a href="contacto.html" style="color:#00d9ff; text-decoration:underline;">Ir a Contacto →</a>`;
+                break;
+        }
+
+        setTimeout(() => {
+            mensajes.innerHTML += `<div class="nubi-msg bot">${respuesta}</div>`;
+            mensajes.scrollTop = mensajes.scrollHeight;
+        }, 400);
+    }
+</script>
+
+</body>
+</html>
