@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Yutube | CloudSpace</title>
+<title>YouTube | CloudSpace</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tabler-icons/2.44.0/iconfont/tabler-icons.min.css">
@@ -70,9 +70,216 @@ nav a.activo{ background:rgba(255,255,255,.16); color:white; }
 }
 .dropdown-content a:hover{ background:rgba(255,255,255,.1); color:white; }
 
-.contenido{ max-width:640px; margin:80px auto; text-align:center; padding:0 20px; }
-.contenido h2{ font-size:28px; font-weight:800; margin-bottom:12px; }
-.contenido p{ color:var(--ink-soft); font-size:15px; }
+.contenido{ max-width:640px; margin:80px auto 0; text-align:center; padding:0 20px; position:relative; }
+.contenido::before{
+    content:"";
+    position:absolute;
+    top:-60px; left:50%; transform:translateX(-50%);
+    width:520px; height:320px;
+    background:
+        radial-gradient(circle at 30% 30%, rgba(255,77,77,.16), transparent 60%),
+        radial-gradient(circle at 75% 60%, rgba(0,217,255,.14), transparent 55%);
+    filter:blur(10px);
+    z-index:-1;
+    pointer-events:none;
+}
+.contenido .kicker{
+    display:inline-block;
+    font-size:11.5px;
+    font-weight:700;
+    letter-spacing:1.6px;
+    text-transform:uppercase;
+    color:var(--navy);
+    background:var(--navy-soft);
+    padding:6px 16px;
+    border-radius:50px;
+    margin-bottom:14px;
+}
+.contenido h2{ font-size:30px; font-weight:800; margin-bottom:12px; letter-spacing:-.3px; }
+.contenido p{ color:var(--ink-soft); font-size:15.5px; }
+
+/* ---- tarjeta de canal ---- */
+.canal-card{
+    max-width:640px;
+    margin:34px auto 26px;
+    padding:0 20px;
+}
+.canal-caja{
+    display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:16px;
+    background:var(--card);
+    border:1.5px solid var(--line);
+    border-radius:18px;
+    padding:20px 26px;
+}
+.canal-info{ display:flex; align-items:center; gap:14px; text-align:left; }
+.canal-avatar{
+    width:52px; height:52px; border-radius:50%;
+    background:linear-gradient(135deg,#00d9ff,#0b3d91);
+    display:flex; align-items:center; justify-content:center;
+    color:white; font-size:22px; flex-shrink:0;
+    box-shadow:0 8px 18px rgba(0,217,255,.25);
+}
+.canal-info h4{ font-size:16.5px; font-weight:800; }
+.canal-info span{ font-size:13px; color:var(--ink-soft); }
+.canal-info .separador{ margin:0 6px; opacity:.5; }
+.btn-suscribir{
+    display:inline-flex; align-items:center; gap:8px;
+    background:linear-gradient(135deg,#ff4d4d,#cc0000);
+    color:white; text-decoration:none;
+    font-weight:700; font-size:14px;
+    padding:11px 24px;
+    border-radius:50px;
+    box-shadow:0 10px 22px rgba(204,0,0,.3);
+    transition:transform .2s ease, box-shadow .2s ease;
+    white-space:nowrap;
+}
+.btn-suscribir:hover{ transform:translateY(-2px); box-shadow:0 14px 26px rgba(204,0,0,.4); }
+
+/* ---- meta debajo de cada miniatura ---- */
+.video-meta{ padding:12px 4px 0; text-align:left; }
+.video-meta h4{ font-size:14px; font-weight:700; line-height:1.35; margin-bottom:4px; }
+.video-meta span{ font-size:12px; color:var(--ink-soft); }
+
+.videos-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:22px;
+    max-width:800px;
+    margin:0 auto 30px;
+    padding:0 20px;
+}
+.video-miniatura{
+    display:block;
+    position:relative;
+    margin:0;
+    aspect-ratio:16/9;
+    border-radius:16px;
+    overflow:hidden;
+    background-size:cover;
+    background-position:center;
+    background-color:#08183a;
+    box-shadow:0 16px 34px rgba(11,61,145,.25);
+    cursor:pointer;
+    text-decoration:none;
+}
+.video-miniatura::after{
+    content:"";
+    position:absolute; inset:0;
+    background:linear-gradient(to top, rgba(0,0,0,.75) 0%, rgba(0,0,0,.05) 45%, rgba(0,0,0,.45) 100%);
+}
+.video-miniatura .vm-barra{
+    position:absolute; top:0; left:0; right:0; z-index:1;
+    display:flex; align-items:center; gap:10px;
+    padding:14px 16px;
+    background:linear-gradient(to bottom, rgba(0,0,0,.55), transparent);
+}
+.video-miniatura .vm-avatar{
+    width:30px; height:30px; border-radius:50%;
+    background:linear-gradient(135deg,#00d9ff,#0b3d91);
+    display:flex; align-items:center; justify-content:center;
+    color:white; font-size:14px; flex-shrink:0;
+}
+.video-miniatura .vm-canal{ color:#fff; font-weight:700; font-size:13.5px; line-height:1.2; }
+.video-miniatura .vm-canal small{ display:block; font-weight:500; font-size:11px; color:rgba(255,255,255,.7); }
+.video-miniatura .vm-play{
+    position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); z-index:1;
+    width:58px; height:58px; border-radius:50%;
+    background:rgba(255,255,255,.16);
+    border:1.5px solid rgba(255,255,255,.6);
+    backdrop-filter:blur(4px);
+    display:flex; align-items:center; justify-content:center;
+    transition:transform .25s ease, background .25s ease;
+}
+.video-miniatura .vm-play i{ color:white; font-size:22px; margin-left:3px; }
+.video-miniatura:hover .vm-play{ transform:translate(-50%,-50%) scale(1.1); background:rgba(255,255,255,.22); }
+.video-miniatura .vm-pie{
+    position:absolute; left:0; right:0; bottom:0; z-index:1;
+    padding:16px 14px 12px;
+}
+.video-miniatura .vm-barraprogreso{
+    height:3px; background:rgba(255,255,255,.3); border-radius:2px; margin-bottom:8px; overflow:hidden;
+}
+.video-miniatura .vm-barraprogreso span{ display:block; width:6%; height:100%; background:#ff4d4d; }
+.video-miniatura .vm-info{ display:flex; align-items:center; justify-content:space-between; gap:8px; }
+.video-miniatura .vm-tiempo{ color:rgba(255,255,255,.9); font-size:11px; font-family:monospace; }
+.video-miniatura .vm-etiqueta{
+    display:flex; align-items:center; gap:5px;
+    color:white; font-size:11px; font-weight:700;
+    background:rgba(204,0,0,.92);
+    padding:4px 10px; border-radius:50px;
+    white-space:nowrap;
+}
+.video-miniatura .vm-titulo{
+    position:absolute; left:14px; right:14px; bottom:40px; z-index:1;
+    color:white; font-size:13px; font-weight:700; line-height:1.3;
+    text-shadow:0 2px 8px rgba(0,0,0,.6);
+}
+
+.youtube-panel-stats{
+    display:flex; justify-content:center; gap:34px; flex-wrap:wrap;
+    margin-bottom:26px; padding-bottom:26px; border-bottom:1px solid var(--line);
+}
+.youtube-panel-stats div{ text-align:center; }
+.youtube-panel-stats strong{ display:block; font-size:20px; font-weight:800; color:var(--ink); }
+.youtube-panel-stats span{ font-size:12px; color:var(--ink-soft); }
+.youtube-panel-botones{ display:flex; gap:14px; justify-content:center; flex-wrap:wrap; }
+.btn-outline-yt{
+    display:inline-flex; align-items:center; gap:8px;
+    border:1.5px solid var(--line);
+    color:var(--ink); text-decoration:none;
+    font-weight:700; font-size:15px;
+    padding:14px 28px;
+    border-radius:50px;
+    transition:.2s ease;
+}
+.btn-outline-yt:hover{ border-color:var(--navy); color:var(--navy); }
+
+.youtube-card{
+    max-width:640px;
+    margin:0 auto 70px;
+    padding:0 20px;
+}
+.youtube-panel{
+    background:var(--card);
+    border:1.5px solid var(--line);
+    border-radius:22px;
+    padding:44px 34px;
+    text-align:center;
+}
+.youtube-icono{
+    width:64px; height:64px;
+    border-radius:16px;
+    background:linear-gradient(135deg,#ff4d4d,#cc0000);
+    color:white;
+    display:flex; align-items:center; justify-content:center;
+    font-size:30px;
+    margin:0 auto 18px;
+    box-shadow:0 12px 25px rgba(204,0,0,.3);
+}
+.youtube-panel h3{ font-size:21px; font-weight:800; margin-bottom:10px; }
+.youtube-panel p{ color:var(--ink-soft); font-size:14.5px; line-height:1.65; margin-bottom:24px; }
+.youtube-temas{
+    display:flex; flex-wrap:wrap; justify-content:center; gap:10px;
+    margin-bottom:28px;
+}
+.youtube-temas span{
+    font-size:12.5px; font-weight:600;
+    color:var(--navy);
+    background:var(--navy-soft);
+    padding:7px 14px;
+    border-radius:50px;
+}
+.btn-youtube{
+    display:inline-flex; align-items:center; gap:10px;
+    background:linear-gradient(135deg,#ff4d4d,#cc0000);
+    color:white; text-decoration:none;
+    font-weight:700; font-size:15px;
+    padding:14px 32px;
+    border-radius:50px;
+    box-shadow:0 12px 28px rgba(204,0,0,.35);
+    transition:transform .2s ease, box-shadow .2s ease;
+}
+.btn-youtube:hover{ transform:translateY(-3px); box-shadow:0 16px 32px rgba(204,0,0,.45); }
 footer{ background:var(--navy); color:rgba(255,255,255,.85); text-align:center; padding:26px 20px; margin-top:60px; }
 
 .hub-categorias{
@@ -180,7 +387,7 @@ input::placeholder, textarea::placeholder{ color:rgba(234,246,255,.35); }
 }
 .btn-texto{ color:rgba(234,246,255,.6) !important; }
 
-.card, .plan, .persona, .hub-card, .formulario, .info{
+.card, .plan, .persona, .hub-card, .formulario, .info, .youtube-panel{
     box-shadow:0 20px 45px rgba(0,0,0,.35) !important;
 }
 
@@ -204,7 +411,7 @@ input::placeholder, textarea::placeholder{ color:rgba(234,246,255,.35); }
 <div class="dropdown-content">
 <div class="dropdown-titulo">Otras categorías</div>
 <a href="Portafolio.html">Portafolio</a>
-<a href="Yutube.html">Yutube</a>
+<a href="Yutube.html">YouTube</a>
 <a href="Juegos.html">Juegos</a>
 </div>
 </div>
@@ -212,9 +419,63 @@ input::placeholder, textarea::placeholder{ color:rgba(234,246,255,.35); }
 </header>
 
 <section class="contenido">
-<h2>Yutube</h2>
-<p>Esta página está en construcción. Aún no tiene contenido — pégame lo que quieras mostrar aquí y te lo armo.</p>
+<span class="kicker">Nuestro canal</span>
+<h2>CloudSpace en YouTube</h2>
+<p>Conoce el proyecto detrás de cámaras: entrevistas, resultados y todo el proceso de investigación de nuestro equipo.</p>
+</section>
 
+<div class="canal-card">
+<div class="canal-caja">
+<div class="canal-info">
+<div class="canal-avatar">☁</div>
+<div>
+<h4>CloudSpace</h4>
+<span>@Cloudspace-w6v <span class="separador">•</span> Encuesta a profesores</span>
+</div>
+</div>
+<a href="https://www.youtube.com/@Cloudspace-w6v" target="_blank" rel="noopener" class="btn-suscribir">
+<i class="ti ti-brand-youtube"></i> Suscribirse
+</a>
+</div>
+</div>
+
+<div class="videos-grid">
+
+<div class="video-item">
+<a href="https://youtu.be/MR3-bVA7kzw" target="_blank" rel="noopener" class="video-miniatura" style="background-image:url('https://i.ytimg.com/vi/MR3-bVA7kzw/hqdefault.jpg')" aria-label="Ver video en YouTube">
+    <div class="vm-barra">
+        <div class="vm-avatar">☁</div>
+        <div class="vm-canal">CloudSpace<small>@Cloudspace-w6v</small></div>
+    </div>
+    <div class="vm-play"><i class="ti ti-player-play-filled"></i></div>
+    <div class="vm-pie">
+        <div class="vm-barraprogreso"><span></span></div>
+        <div class="vm-info">
+            <span class="vm-tiempo">Video 1</span>
+            <span class="vm-etiqueta"><i class="ti ti-brand-youtube"></i> Ver</span>
+        </div>
+    </div>
+</a>
+<div class="video-meta"><h4>Entrevista a un profesor sobre almacenamiento en la nube</h4><span>CloudSpace</span></div>
+</div>
+
+<div class="video-item">
+<a href="https://youtu.be/qadhRJYv-ZU" target="_blank" rel="noopener" class="video-miniatura" style="background-image:url('https://i.ytimg.com/vi/qadhRJYv-ZU/hqdefault.jpg')" aria-label="Ver video en YouTube">
+    <div class="vm-barra">
+        <div class="vm-avatar">☁</div>
+        <div class="vm-canal">CloudSpace<small>@Cloudspace-w6v</small></div>
+    </div>
+    <div class="vm-play"><i class="ti ti-player-play-filled"></i></div>
+    <div class="vm-pie">
+        <div class="vm-barraprogreso"><span></span></div>
+        <div class="vm-info">
+            <span class="vm-tiempo">Video 2</span>
+            <span class="vm-etiqueta"><i class="ti ti-brand-youtube"></i> Ver</span>
+        </div>
+    </div>
+</a>
+<div class="video-meta"><h4>Rafael Sánchez: ¿qué desafíos enfrentó al comenzar su carrera?</h4><span>CloudSpace</span></div>
+</div>
 
 <footer>CloudSpace © 2026</footer>
 
@@ -407,6 +668,10 @@ window.addEventListener('click', function(e){
         0%, 100% { opacity: 0.35; transform: scale(0.85); }
         50% { opacity: 1; transform: scale(1.15); }
     }
+
+@media (max-width:560px){
+    .videos-grid{ grid-template-columns:1fr; }
+}
 
     @media (max-width: 480px) {
         #nubi-panel {
