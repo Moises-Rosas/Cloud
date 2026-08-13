@@ -70,9 +70,58 @@ nav a.activo{ background:rgba(255,255,255,.16); color:white; }
 }
 .dropdown-content a:hover{ background:rgba(255,255,255,.1); color:white; }
 
-.contenido{ max-width:640px; margin:80px auto; text-align:center; padding:0 20px; }
-.contenido h2{ font-size:28px; font-weight:800; margin-bottom:12px; }
-.contenido p{ color:var(--ink-soft); font-size:15px; }
+.contenido{ max-width:640px; margin:80px auto 0; text-align:center; padding:0 20px; }
+.contenido .kicker{
+    display:inline-block;
+    font-size:11.5px;
+    font-weight:700;
+    letter-spacing:1.6px;
+    text-transform:uppercase;
+    color:var(--navy);
+    background:var(--navy-soft);
+    padding:6px 16px;
+    border-radius:50px;
+    margin-bottom:14px;
+}
+.contenido h2{ font-size:30px; font-weight:800; margin-bottom:12px; letter-spacing:-.3px; }
+.contenido p{ color:var(--ink-soft); font-size:15.5px; }
+
+.portafolios-grid{
+    display:flex;
+    flex-wrap:wrap;
+    justify-content:center;
+    gap:22px;
+    max-width:680px;
+    margin:34px auto 70px;
+    padding:0 20px;
+}
+.portafolio-card{
+    background:var(--card);
+    border:1.5px solid var(--line);
+    border-radius:18px;
+    padding:34px 30px;
+    width:280px;
+    text-align:center;
+    transition:transform .2s ease, border-color .2s ease;
+}
+.portafolio-card:hover{ transform:translateY(-6px); border-color:var(--navy); }
+.portafolio-avatar{
+    width:64px; height:64px; border-radius:50%;
+    background:linear-gradient(135deg,#00d9ff,#0b3d91);
+    color:white; font-size:24px; font-weight:800;
+    display:flex; align-items:center; justify-content:center;
+    margin:0 auto 16px;
+}
+.portafolio-card h4{ font-size:18px; font-weight:800; margin-bottom:4px; }
+.portafolio-card span{ display:block; font-size:13px; color:var(--ink-soft); margin-bottom:20px; }
+.btn-portafolio{
+    display:inline-flex; align-items:center; gap:8px;
+    background:var(--navy); color:white; text-decoration:none;
+    font-weight:700; font-size:14px;
+    padding:11px 24px; border-radius:50px;
+    transition:transform .2s ease, box-shadow .2s ease;
+}
+.btn-portafolio:hover{ transform:translateY(-2px); box-shadow:0 10px 22px rgba(0,217,255,.3); }
 footer{ background:var(--navy); color:rgba(255,255,255,.85); text-align:center; padding:26px 20px; margin-top:60px; }
 
 .hub-categorias{
@@ -212,9 +261,32 @@ input::placeholder, textarea::placeholder{ color:rgba(234,246,255,.35); }
 </header>
 
 <section class="contenido">
+<span class="kicker">Nuestro equipo</span>
 <h2>Portafolio</h2>
-<p>Esta página está en construcción. Aún no tiene contenido — pégame lo que quieras mostrar aquí y te lo armo.</p>
+<p>Conoce el trabajo individual de cada integrante del equipo CloudSpace.</p>
+</section>
 
+<div class="portafolios-grid">
+
+<div class="portafolio-card">
+<div class="portafolio-avatar">M</div>
+<h4>Moises Murillo</h4>
+<span>Portafolio personal</span>
+<a href="https://canva.link/hilt0jijduk9an" target="_blank" rel="noopener" class="btn-portafolio">
+<i class="ti ti-external-link"></i> Ver portafolio
+</a>
+</div>
+
+<div class="portafolio-card">
+<div class="portafolio-avatar">Y</div>
+<h4>Yoiban Lopez</h4>
+<span>Portafolio personal</span>
+<a href="https://canva.link/3hb6y9bcs3o27i6" target="_blank" rel="noopener" class="btn-portafolio">
+<i class="ti ti-external-link"></i> Ver portafolio
+</a>
+</div>
+
+</div>
 
 <footer>CloudSpace © 2026</footer>
 
